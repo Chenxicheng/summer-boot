@@ -1,0 +1,30 @@
+package com.summer.commen.base;
+
+import java.util.List;
+
+public interface BaseService<T> {
+
+    T get(T t);
+
+    T get(String id);
+
+    List<T> findList(T t);
+
+    void save (T t);
+
+    void insert (T t);
+
+    void update (T t);
+
+    void delete (T t);
+
+    void delete (String id);
+
+    void deleteAll (List<T> entitys);
+
+    void deleteByLogic (T t);
+
+    void deleteByLogic (String id);
+
+
+}
