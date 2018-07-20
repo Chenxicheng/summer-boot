@@ -4,6 +4,7 @@ import com.summer.commen.base.AbstractBaseService;
 import com.summer.commen.utils.StringUtils;
 import com.summer.modules.sys.dao.RoleDao;
 import com.summer.modules.sys.dao.UserDao;
+import com.summer.modules.sys.entity.Role;
 import com.summer.modules.sys.entity.User;
 import com.summer.modules.sys.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,13 +21,18 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class UserServiceImpl extends AbstractBaseService<UserDao, User> implements UserService {
 
-//    @Autowired
-//    private RoleDao roleDao;
+    @Autowired
+    private RoleDao roleDao;
 
     @Override
     public User get(String id) {
         User user = super.get(id);
-
+        if (user != null && StringUtils.isNotBlank(user.getId())) {
+            List<Role> roleList = roleDao.findRoleListByUserId(user.getId());
+            if (roleList != null && roleList.size() > 0) {
+                user.setRoleList(roleList);
+            }
+        }
         return user;
     }
 
@@ -62,4 +68,46 @@ public class UserServiceImpl extends AbstractBaseService<UserDao, User> implemen
     private static String encryptPassword (String password) {
         return new BCryptPasswordEncoder().encode(password);
     }
+
+    @Override
+    public User getByUsername(String username) {
+        User user = new User();
+        user.setUsername(username);
+        user = dao.getByUsername(user);
+        if (user != null) {
+            if (user != null && StringUtils.isNotBlank(user.getId())) {
+                List<Role> roleList = roleDao.findRoleListByUserId(user.getId());
+                if (roleList != null && roleList.size() > 0) {
+                    user.setRoleList(roleList);
+                }
+            }
+            return user;
+        }
+        return null;
+    }
+
+
+    @Override
+    @Transactional(readOnly = false)
+    public void updatePasswordById(User user) {
+        user.setPassword(encryptPassword(user.getPassword()));
+        user.preUpdate();
+        dao.updatePasswordById(user);
+    }
+
+    @Override
+    @Transactional(readOnly = false)
+    public void updateUserInfo(User user) {
+        user.preUpdate();
+        dao.updateUserInfo(user);
+    }
+
+    @Override
+    @Transactional(readOnly = false)
+    public void updateByIsEnable(User user) {
+        user.preUpdate();
+        dao.updateByStatus(user);
+    }
+
+
 }

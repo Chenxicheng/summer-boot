@@ -31,7 +31,7 @@ public abstract class AbstractBaseService<D extends CrudDao<T>, T extends DataEn
      * @return
      */
     public T get(T entity) {
-        return dao.get(entity);
+        return get(entity.getId());
     }
 
     /**
@@ -90,14 +90,6 @@ public abstract class AbstractBaseService<D extends CrudDao<T>, T extends DataEn
         dao.delete(entity);
     }
 
-    /**
-     * 删除数据
-     * @param id
-     */
-    @Transactional(readOnly = false)
-    public void delete(String id) {
-        dao.delete(id);
-    }
 
     /**
      * 逻辑删除
@@ -108,14 +100,6 @@ public abstract class AbstractBaseService<D extends CrudDao<T>, T extends DataEn
         dao.deleteByLogic(entity);
     }
 
-    /**
-     * 逻辑删除
-     * @param id
-     */
-    @Transactional(readOnly = false)
-    public void deleteByLogic (String id) {
-        dao.deleteByLogic(id);
-    }
 
     /**
      * 删除全部数据

@@ -41,6 +41,6 @@ public interface UserDao extends CrudDao<User> {
      * 更新是否启用状态
      * @param user
      */
-    void updateByIsEnable(User user);
+    void updateByStatus(User user);
 
 }

@@ -81,23 +81,23 @@ public interface CrudDao<T> extends BaseDao {
 	 */
 	public int update(T entity);
 	
-	/**
-	 * 删除数据（物理删除，从数据库中彻底删除）
-	 * @param id
-	 * @see public int delete(T entity)
-	 * @return
-	 */
-	@Deprecated
-	public int delete(String id);
-	
-	/**
-	 * 删除数据（逻辑删除，更新del_flag字段为1,在表包含字段del_flag时，可以调用此方法，将数据隐藏）
-	 * @param id
-	 * @see public int delete(T entity)
-	 * @return
-	 */
-	@Deprecated
-	public int deleteByLogic(String id);
+//	/**
+//	 * 删除数据（物理删除，从数据库中彻底删除）
+//	 * @param id
+//	 * @see public int delete(T entity)
+//	 * @return
+//	 */
+//	@Deprecated
+//	public int delete(String id);
+//
+//	/**
+//	 * 删除数据（逻辑删除，更新del_flag字段为1,在表包含字段del_flag时，可以调用此方法，将数据隐藏）
+//	 * @param id
+//	 * @see public int delete(T entity)
+//	 * @return
+//	 */
+//	@Deprecated
+//	public int deleteByLogic(String id);
 	
 	/**
 	 * 删除数据（物理删除，从数据库中彻底删除）

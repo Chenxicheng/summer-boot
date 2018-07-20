@@ -9,7 +9,7 @@
     	a.password AS "password",
     	a.phone AS "phone",
     	a.email AS "email",
-    	a.is_enable AS "isEnable",
+    	a.status AS "status",
     	a.create_date AS "createDate",
     	a.create_by AS "createBy",
     	a.update_date AS "updateDate",
@@ -137,7 +137,7 @@
 			name,
 			phone,
 			email,
-			is_enable,
+			status,
 			create_by,
 			create_date,
 			update_by,
@@ -151,7 +151,7 @@
 			#{name},
 			#{phone},
 			#{email},
-			#{isEnable},
+			#{status},
 			#{createBy},
 			#{createDate},
 			#{updateBy},
@@ -169,7 +169,7 @@
 			name = #{name},
 			phone = #{phone},
 			email = #{email},
-			is_enable = #{isEnable},
+			status = #{status},
 			update_by = #{updateBy},
 			update_date = #{updateDate},
 			remarks = #{remarks}
@@ -202,9 +202,9 @@
 	</update>
 
 	<!-- 更新是否启用状态  -->
-	<update id="updateByIsEnable">
+	<update id="updateByStatus">
 		UPDATE sys_user SET
-		is_enable = #{isEnable},
+		status = #{status},
 		update_by = #{updateBy},
 		update_date = #{updateDate}
 		WHERE id = #{id}

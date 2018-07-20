@@ -26,19 +26,6 @@ public class ResultJSON extends JSONObject implements Serializable{
     public ResultJSON(boolean status) {
         put("status", status);
     }
-    
-    /**
-     * 传参构造器
-     * @param status 状态值 true 正确 false 错误
-     */
-    public ResultJSON(String code) {
-        put("code", code);
-    }
-
-
-    
-
-    
 
     /**
      * 执行错误
@@ -46,13 +33,7 @@ public class ResultJSON extends JSONObject implements Serializable{
     public static ResultJSON error() {
         return new ResultJSON(false);
     }
-    
-    /**
-     * 码
-     */
-    public static ResultJSON code(String code) {
-        return new ResultJSON(code);
-    }
+
 
     /**
      * 执行错误
@@ -62,6 +43,17 @@ public class ResultJSON extends JSONObject implements Serializable{
     public static ResultJSON error(String message) {
 
         return error().put("message", message);
+    }
+
+    /**
+     * 执行失败
+     * @param code 编码
+     * @param message 信息
+     * @return
+     */
+    public static ResultJSON error(String code, String message) {
+
+        return error().put("code", code).put("message", message);
     }
 
     /**
@@ -78,6 +70,16 @@ public class ResultJSON extends JSONObject implements Serializable{
      */
     public static ResultJSON ok(String message) {
         return ok().put("message", message);
+    }
+
+    /**
+     * 执行正确
+     * @param code 编码
+     * @param message 信息
+     * @return
+     */
+    public static ResultJSON ok(String code, String message) {
+        return ok().put("code", code).put("message", message);
     }
 
     /**

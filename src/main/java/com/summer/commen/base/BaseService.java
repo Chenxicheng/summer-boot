@@ -6,8 +6,6 @@ import java.util.List;
 
 public interface BaseService<T> {
 
-    T get(T t);
-
     T get(String id);
 
     Page<T> findPage(Page<T> page, T t);
@@ -22,13 +20,9 @@ public interface BaseService<T> {
 
     void delete (T t);
 
-    void delete (String id);
-
     void deleteAll (List<T> entitys);
 
     void deleteByLogic (T t);
-
-    void deleteByLogic (String id);
 
 
 }

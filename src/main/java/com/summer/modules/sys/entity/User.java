@@ -12,28 +12,28 @@ public class User extends DataEntity<User> {
     /**
      * 是否启用 启用 0
      */
-    public static final String IS_ENABLE = "0";
+    public static final String USER_STATUS_NORMAL = "0";
     /**
      * 是否启用 禁用 1
      */
-    public static final String IS_NOT_ENABLE = "1";
+    public static final String USER_STATUS_LOCK = "1";
 
     private String username; // 登录用户名
     private String password; // 密码
     private String name; // 用户姓名
     private String phone; // 手机号
     private String email; // 邮箱
-    private String isEnable; // 是否启用
+    private String status; // 是否启用
 
     private List<Role> roleList = Lists.newArrayList();
 
     public User() {
         super();
-        this.isEnable = IS_ENABLE;
+        this.status = USER_STATUS_NORMAL;
     }
 
     public User(String id) {
         super(id);
-        this.isEnable = IS_ENABLE;
+        this.status = USER_STATUS_NORMAL;
     }
 }
