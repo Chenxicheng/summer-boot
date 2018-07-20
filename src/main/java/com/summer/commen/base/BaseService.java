@@ -1,5 +1,7 @@
 package com.summer.commen.base;
 
+import com.baomidou.mybatisplus.plugins.Page;
+
 import java.util.List;
 
 public interface BaseService<T> {
@@ -7,6 +9,8 @@ public interface BaseService<T> {
     T get(T t);
 
     T get(String id);
+
+    Page<T> findPage(Page<T> page, T t);
 
     List<T> findList(T t);
 

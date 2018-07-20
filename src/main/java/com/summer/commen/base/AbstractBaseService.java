@@ -1,5 +1,6 @@
 package com.summer.commen.base;
 
+import com.baomidou.mybatisplus.plugins.Page;
 import com.summer.commen.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -48,11 +49,10 @@ public abstract class AbstractBaseService<D extends CrudDao<T>, T extends DataEn
      * @param entity
      * @return
      */
-//    public Page<T> findPage(Page<T> page, T entity) {
-//        entity.setPage(page);
-//        page.setList(dao.findList(entity));
-//        return page;
-//    }
+    public Page<T> findPage(Page<T> page, T entity) {
+        page.setRecords(dao.findList(page, entity));
+        return page;
+    }
 
     /**
      * 保存数据（插入或更新）

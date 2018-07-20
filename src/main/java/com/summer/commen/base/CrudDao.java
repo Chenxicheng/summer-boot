@@ -3,6 +3,7 @@
  */
 package com.summer.commen.base;
 
+import com.baomidou.mybatisplus.plugins.Page;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -42,6 +43,14 @@ public interface CrudDao<T> extends BaseDao {
 	 * @return
 	 */
 	public List<T> findList(T entity);
+
+	/**
+	 * 分页查询
+	 * @param page
+	 * @param entity
+	 * @return
+	 */
+	List<T> findList(Page<T> page, T entity);
 	
 	/**
 	 * 查询所有数据列表

@@ -1,5 +1,6 @@
 package com.summer.commen.base;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.summer.commen.utils.IdGen;
 import com.summer.commen.utils.StringUtils;
 import lombok.Data;
@@ -24,9 +25,12 @@ public class DataEntity<T> extends BaseEntity<T> {
 
     protected String createBy; // 创建者id
 
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     protected Date createDate; // 创建日期
 
     protected String updateBy;	// 更新者id
+
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     protected Date updateDate;	// 更新日期
 
     protected String remarks; // 备注

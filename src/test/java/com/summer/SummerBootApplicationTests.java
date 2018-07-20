@@ -1,5 +1,6 @@
 package com.summer;
 
+import com.baomidou.mybatisplus.plugins.Page;
 import com.google.common.collect.Lists;
 import com.summer.modules.sys.entity.Role;
 import com.summer.modules.sys.entity.User;
@@ -33,6 +34,14 @@ public class SummerBootApplicationTests {
 		role.setName("ROLE_COMMEN_USER");
 		role.setCnName("普通用户");
 		roleService.save(role);
+		System.out.println("*****************   插入完成    **********************");
+	}
+
+	@Test
+	public void testRoleList () {
+		Page<Role> page = roleService.findPage(new Page<Role>(1, 10), new Role("936ca8afdb0c476687d82ff328385a5e"));
+		System.out.println(page);
+		System.out.println(page.getRecords());
 		System.out.println("*****************   插入完成    **********************");
 	}
 
