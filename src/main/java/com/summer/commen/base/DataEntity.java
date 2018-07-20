@@ -1,5 +1,7 @@
 package com.summer.commen.base;
 
+import com.summer.commen.utils.IdGen;
+import com.summer.commen.utils.StringUtils;
 import lombok.Data;
 
 import java.util.Date;
@@ -39,5 +41,24 @@ public class DataEntity<T> extends BaseEntity<T> {
     public DataEntity(String id) {
         super(id);
         this.delFlag = DEL_FLAG_NORMAL;
+    }
+
+    /**
+     *
+     */
+    public void preInsert() {
+        if (getId() == null || StringUtils.isBlank(getId())) {
+            setId(IdGen.uuid());
+        }
+        Date now = new Date();
+        this.createBy = "1";
+        this.createDate = now;
+        this.updateBy = "1";
+        this.updateDate = now;
+    }
+
+    public void preUpdate() {
+        this.updateBy = "1";
+        this.updateDate = new Date();
     }
 }

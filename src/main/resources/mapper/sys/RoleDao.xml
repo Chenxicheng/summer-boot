@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.demo.modules.sys.dao.RoleDao">
+<mapper namespace="com.summer.modules.sys.dao.RoleDao">
 	
     <sql id="roleColumns">
     	a.id AS "id",
@@ -43,14 +43,14 @@
 	<!-- 根据用户id获取该用户所拥有的角色 -->
 	<select id="findRoleListByUserId" resultType="Role">
 		SELECT
-			a.role_id ,
+			a.sys_role_id ,
 			r.`name` ,
 			r.cn_name
 		FROM
 			sys_user_role a
 		LEFT JOIN sys_role r ON r.id = a.role_id
 		WHERE
-			a.user_id = #{userId}
+			a.sys_user_id = #{userId}
 	</select>
 
 	

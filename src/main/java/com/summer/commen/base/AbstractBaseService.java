@@ -62,11 +62,23 @@ public abstract class AbstractBaseService<D extends CrudDao<T>, T extends DataEn
     public void save(T entity) {
         if (StringUtils.isBlank(entity.getId())){
 //            entity.preInsert();
-            dao.insert(entity);
+            insert(entity);
         }else{
 //            entity.preUpdate();
-            dao.update(entity);
+            update(entity);
         }
+    }
+
+    @Transactional(readOnly = false)
+    public void insert(T entity) {
+        entity.preInsert();
+        dao.insert(entity);
+    }
+
+    @Transactional(readOnly = false)
+    public void update(T entity) {
+        entity.preUpdate();
+        dao.update(entity);
     }
 
     /**
