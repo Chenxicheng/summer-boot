@@ -244,56 +244,6 @@
 	<select id="findUniqueByProperty"  resultType="User" statementType="STATEMENT">
 		select * from sys_user where ${propertyName} = '${value}'
 	</select>
-	<!-- 添加好友 -->
-	<!--<insert id="insertFriend">-->
-		<!--INSERT INTO sys_user_friend(-->
-			<!--id, -->
-			<!--userId, -->
-			<!--friendId-->
-		<!--) VALUES (-->
-			<!--#{id}, -->
-			<!--#{userId}, -->
-			<!--#{friendId}-->
-		<!--)-->
-	<!--</insert>-->
-	
-	<!-- 根据用户id和好友id获取唯一记录 -->
-	<!--<select id="findFriend" resultType="User">-->
-		<!--SELECT-->
-			<!--*-->
-		<!--FROM sys_user a-->
-		<!--LEFT JOIN sys_user_friend p ON p.userId = a.id-->
-		<!--WHERE p.userId = #{userId} and p.friendId = #{friendId}-->
-	<!--</select>-->
-	
-	<!-- 删除好友 -->
-	<!--<select id="deleteFriend">-->
-		<!--DELETE FROM sys_user_friend  WHERE userId = #{userId} and friendId = #{friendId}-->
-	<!--</select>-->
-	
-		<!-- 查询我的好友列表 -->
-	<!--<select id="findFriends"  resultType="User">-->
-		<!--SELECT-->
-			<!--<include refid="userColumns"/>&lt;!&ndash; ,-->
-			<!--ro.office_id AS "roleList.officeList.id" &ndash;&gt;-->
-		<!--FROM sys_user a-->
-		<!--<include refid="userJoins"/>-->
-		<!--LEFT JOIN sys_user_friend p ON p.friendId = a.id-->
-		<!--WHERE  p.userId = #{id}-->
-	<!--</select>-->
-	
-		<!-- 根据条件检索用户，添加到好友列表 -->
-	<!--<select id="searchUsers"  resultType="User">-->
-		<!--SELECT-->
-			<!--<include refid="userColumns"/>&lt;!&ndash; ,-->
-			<!--ro.office_id AS "roleList.officeList.id" &ndash;&gt;-->
-		<!--FROM sys_user a-->
-	  	<!--<include refid="userJoins"/>-->
-		<!--<if test="name != null and name != ''">-->
-			<!--WHERE  a.name like -->
-					<!--<if test="dbName == 'oracle'">'%'||#{name}||'%'</if>-->
-					<!--<if test="dbName == 'mysql'">CONCAT('%', #{name}, '%')</if>-->
-		<!--</if>-->
-	<!--</select>-->
+
 	
 </mapper>

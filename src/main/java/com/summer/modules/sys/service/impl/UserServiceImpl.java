@@ -2,8 +2,10 @@ package com.summer.modules.sys.service.impl;
 
 import com.summer.commen.base.AbstractBaseService;
 import com.summer.commen.utils.StringUtils;
+import com.summer.modules.sys.dao.PermissionDao;
 import com.summer.modules.sys.dao.RoleDao;
 import com.summer.modules.sys.dao.UserDao;
+import com.summer.modules.sys.entity.Permission;
 import com.summer.modules.sys.entity.Role;
 import com.summer.modules.sys.entity.User;
 import com.summer.modules.sys.service.UserService;
@@ -24,6 +26,9 @@ public class UserServiceImpl extends AbstractBaseService<UserDao, User> implemen
     @Autowired
     private RoleDao roleDao;
 
+    @Autowired
+    private PermissionDao permissionDao;
+
     @Override
     public User get(String id) {
         User user = super.get(id);
@@ -32,6 +37,7 @@ public class UserServiceImpl extends AbstractBaseService<UserDao, User> implemen
             if (roleList != null && roleList.size() > 0) {
                 user.setRoleList(roleList);
             }
+
         }
         return user;
     }
@@ -74,12 +80,14 @@ public class UserServiceImpl extends AbstractBaseService<UserDao, User> implemen
         User user = new User();
         user.setUsername(username);
         user = dao.getByUsername(user);
-        if (user != null) {
-            if (user != null && StringUtils.isNotBlank(user.getId())) {
-                List<Role> roleList = roleDao.findRoleListByUserId(user.getId());
-                if (roleList != null && roleList.size() > 0) {
-                    user.setRoleList(roleList);
-                }
+        if (user != null && StringUtils.isNotBlank(user.getId())) {
+            List<Role> roleList = roleDao.findRoleListByUserId(user.getId());
+            if (roleList != null && roleList.size() > 0) {
+                user.setRoleList(roleList);
+            }
+            List<Permission> permissionList = permissionDao.findListByUserId(user.getId());
+            if (permissionList != null && permissionList.size() > 0) {
+                user.setPermissionList(permissionList);
             }
             return user;
         }

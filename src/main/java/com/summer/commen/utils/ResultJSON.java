@@ -51,7 +51,7 @@ public class ResultJSON extends JSONObject implements Serializable{
      * @param message 信息
      * @return
      */
-    public static ResultJSON error(String code, String message) {
+    public static ResultJSON error(Integer code, String message) {
 
         return error().put("code", code).put("message", message);
     }
@@ -78,7 +78,7 @@ public class ResultJSON extends JSONObject implements Serializable{
      * @param message 信息
      * @return
      */
-    public static ResultJSON ok(String code, String message) {
+    public static ResultJSON ok(Integer code, String message) {
         return ok().put("code", code).put("message", message);
     }
 

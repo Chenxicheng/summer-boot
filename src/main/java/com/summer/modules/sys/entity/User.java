@@ -27,6 +27,8 @@ public class User extends DataEntity<User> {
 
     private List<Role> roleList = Lists.newArrayList();
 
+    private List<Permission> permissionList = Lists.newArrayList();
+
     public User() {
         super();
         this.status = USER_STATUS_NORMAL;

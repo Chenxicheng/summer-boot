@@ -43,12 +43,12 @@
 	<!-- 根据用户id获取该用户所拥有的角色 -->
 	<select id="findRoleListByUserId" resultType="Role">
 		SELECT
-			a.sys_role_id ,
-			r.`name` ,
-			r.cn_name
+			a.sys_role_id AS "id",
+			r.`name` AS "name",
+			r.cn_name AS "cnName"
 		FROM
 			sys_user_role a
-		LEFT JOIN sys_role r ON r.id = a.role_id
+		LEFT JOIN sys_role r ON r.id = a.sys_role_id
 		WHERE
 			a.sys_user_id = #{userId}
 	</select>
@@ -62,6 +62,19 @@
 		<include refid="roleJoins"/>
 		WHERE a.del_flag = #{DEL_FLAG_NORMAL}
 	</select>
+
+	<!-- 删除权限和角色关联表数据 -->
+	<delete id="deletePermissionRole">
+		DELETE FROM sys_permission_role WHERE sys_role_id = #{id}
+	</delete>
+
+	<!-- 插入权限和角色关联表数据 -->
+	<insert id="insertPermissionRole">
+		INSERT INTO sys_permission_role(sys_role_id, sys_permission_id )
+		<foreach collection="permissionList" item="permission" separator=" union all ">
+			SELECT #{id}, #{permission.id} FROM dual
+		</foreach>
+	</insert>
 
 	
 	<!-- 插入用户 -->

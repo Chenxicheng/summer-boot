@@ -16,6 +16,8 @@ public interface RoleDao extends CrudDao<Role> {
      */
     List<Role> findRoleListByUserId(String userId);
 
+    void deletePermissionRole(Role role);
 
+    void insertPermissionRole(Role role);
 
 }

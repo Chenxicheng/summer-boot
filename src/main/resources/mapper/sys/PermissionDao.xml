@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.summer.modules.sys.dao.PermissionDao">
+	
+    <sql id="permissionColumns">
+    	a.id AS "id",
+    	a.name AS "name",
+    	a.parent_id AS "parentId",
+    	a.parent_ids AS "parentIds",
+    	a.url AS "url",
+    	a.method AS "method",
+    	a.sort AS "sort",
+    	a.remarks AS "remarks",
+    	a.create_date AS "createDate",
+    	a.create_by AS "createBy",
+    	a.update_date AS "updateDate",
+    	a.update_by AS "updateBy",
+    	a.del_flag AS "delFlag"
+    </sql>
+    
+    <sql id="permissionJoins">
+    </sql>
+	
+	<!-- 根据编号获得权限 -->
+	<select id="get" resultType="Permission">
+		SELECT
+			<include refid="permissionColumns"/>
+		FROM sys_permission a
+		<include refid="permissionJoins"/>
+		WHERE
+		a.id = #{id}
+	</select>
+	
+	<!-- 分页查询权限信息 -->
+	<select id="findList" resultType="Permission">
+		SELECT
+			<include refid="permissionColumns"/>
+		FROM sys_permission a
+		<include refid="permissionJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+		</where>
+	</select>
+
+	
+	<!-- 查询全部权限 -->
+	<select id="findAllList" resultType="Permission">
+		SELECT
+			<include refid="permissionColumns"/>
+		FROM sys_permission a
+		<include refid="permissionJoins"/>
+		WHERE a.del_flag = #{DEL_FLAG_NORMAL}
+	</select>
+
+	<!-- 查询全部权限 -->
+	<select id="findListByUserId" resultType="Permission">
+		SELECT
+		DISTINCT(p.id) AS "id",
+		p.name AS "name",
+		p.parent_id AS "parentId",
+		p.parent_ids AS "parentIds",
+		p.url AS "url",
+		p.method AS "method"
+		FROM
+		sys_user a
+		LEFT JOIN sys_user_role ur ON ur.sys_user_id =a.id
+		LEFT JOIN sys_permission_role pr ON pr.sys_role_id = ur.sys_role_id
+		LEFT JOIN sys_permission p ON p.id = pr.sys_permission_id
+		WHERE a.id = #{userId}
+		ORDER BY p.sort ASC
+	</select>
+
+
+	
+	<!-- 插入权限 -->
+	<insert id="insert">
+		INSERT INTO sys_permission(
+			id,
+			name,
+			parent_id,
+			parent_ids,
+			url,
+			method,
+			sort,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id},
+			#{name},
+			#{parentId},
+			#{parentIds},
+			#{url},
+			#{method},
+			#{sort},
+			#{createBy},
+			#{createDate},
+			#{updateBy},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<!-- 更新权限 -->
+	<update id="update">
+		UPDATE sys_permission SET
+			id = #{id},
+			name = #{name},
+			parent_id = #{parentId},
+			parent_ids = #{parentIds},
+			url = #{url},
+			method = #{method},
+			sort = #{sort},
+			update_by = #{updateBy},
+			update_date = #{updateDate},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+
+
+
+	
+	<!-- 物理删除权限 -->
+	<update id="delete">
+		DELETE FROM sys_permission
+		WHERE id = #{id}
+	</update>
+	
+	<!-- 逻辑删除权限 -->
+	<update id="deleteByLogic">
+		UPDATE sys_permission SET
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+	<!-- 根据实体名称和字段名称和字段值获取唯一记录 -->
+	<select id="findUniqueByProperty"  resultType="Permission" statementType="STATEMENT">
+		select * from sys_permission where ${propertyName} = '${value}'
+	</select>
+
+	
+</mapper>

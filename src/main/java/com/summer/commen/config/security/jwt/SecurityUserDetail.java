@@ -17,10 +17,12 @@ public class SecurityUserDetail extends User implements UserDetails {
 
     public SecurityUserDetail(User user) {
         if(user!=null) {
+            this.setId(user.getId());
             this.setUsername(user.getUsername());
             this.setPassword(user.getPassword());
             this.setStatus(user.getStatus());
             this.setRoleList(user.getRoleList());
+            this.setPermissionList(user.getPermissionList());
 //            this.setPermissions(user.getPermissions());
         }
     }
@@ -32,9 +34,9 @@ public class SecurityUserDetail extends User implements UserDetails {
      */
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.getRoleList().stream()
-                .map(r -> {
-                    return new SimpleGrantedAuthority(r.getName());
+        return this.getPermissionList().stream()
+                .map(p -> {
+                    return new SimpleGrantedAuthority(p.getName());
                 })
                 .collect(Collectors.toList());
     }

@@ -43,4 +43,6 @@ public interface UserDao extends CrudDao<User> {
      */
     void updateByStatus(User user);
 
+
+
 }
