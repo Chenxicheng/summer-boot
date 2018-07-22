@@ -1,6 +1,5 @@
 package com.summer.commen.config.security.jwt;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.summer.modules.sys.entity.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

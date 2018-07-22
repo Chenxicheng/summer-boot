@@ -1,5 +1,7 @@
 package com.summer.modules.sys.web;
 
+import com.summer.commen.config.security.jwt.CurrentUser;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,6 +21,8 @@ public class TestController {
 
     @RequestMapping("bye")
     public String bye() {
+        CurrentUser userDetails = (CurrentUser) SecurityContextHolder.getContext().getAuthentication() .getPrincipal();
+        System.out.println(userDetails.getId());
         return "bye";
     }
 
