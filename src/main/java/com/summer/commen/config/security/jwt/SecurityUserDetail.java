@@ -33,9 +33,9 @@ public class SecurityUserDetail extends User implements UserDetails {
      */
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.getPermissionList().stream()
-                .map(p -> {
-                    return new SimpleGrantedAuthority(p.getName());
+        return this.getRoleList().stream()
+                .map(r -> {
+                    return new SimpleGrantedAuthority(r.getName());
                 })
                 .collect(Collectors.toList());
     }

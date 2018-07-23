@@ -5,18 +5,31 @@
     <sql id="permissionColumns">
     	a.id AS "id",
     	a.name AS "name",
-    	a.menu_id AS "menu.id",
-    	a.type AS "type",
-    	a.url AS "url",
+    	a.parent_id AS "parentId",
+    	a.parent_ids AS "parentIds",
+    	a.path AS "path",
     	a.title AS "title",
     	a.sort AS "sort",
+    	a.icon AS "icon",
+    	a.type AS "type",
     	a.status AS "status",
+    	a.button_type AS "button",
+    	a.level AS "level",
+    	a.component AS "component",
     	a.remarks AS "remarks",
     	a.create_date AS "createDate",
     	a.create_by AS "createBy",
     	a.update_date AS "updateDate",
     	a.update_by AS "updateBy",
-    	a.del_flag AS "delFlag"
+    	a.del_flag AS "delFlag",
+    	(
+			SELECT
+				group_concat(sr. NAME)
+			FROM
+				sys_role sr
+			LEFT JOIN sys_permission_role spr ON sr.id = spr.sys_role_id
+			WHERE spr.sys_permission_id = a.id
+		) AS "roleNames"
     </sql>
     
     <sql id="permissionJoins">
@@ -43,6 +56,15 @@
 			<if test="id != null and id != ''">
 				AND a.id = #{id}
 			</if>
+			<if test="parentId != null and parentId != ''">
+				AND a.parent_id = #{parentId}
+			</if>
+			<if test="type != null and type != ''">
+				AND a.type = #{type}
+			</if>
+			<if test="status != null and status != ''">
+				AND a.status = #{status}
+			</if>
 		</where>
 	</select>
 
@@ -61,15 +83,16 @@
 		SELECT
 		DISTINCT(p.id) AS "id",
 		p.name AS "name",
-		p.menu_id AS "menu.id",
-		p.url AS "url",
-		p.title AS "title"
+		p.parent_id AS "parentId",
+		p.parent_ids AS "parentIds",
+		p.path AS "path",
+		p.name AS "name"
 		FROM
 		sys_user a
 		LEFT JOIN sys_user_role ur ON ur.sys_user_id =a.id
 		LEFT JOIN sys_permission_role pr ON pr.sys_role_id = ur.sys_role_id
 		LEFT JOIN sys_permission p ON p.id = pr.sys_permission_id
-		WHERE a.id = #{userId}
+		WHERE a.id = #{userId} AND a.type = '1'
 		ORDER BY p.sort ASC
 	</select>
 
@@ -80,12 +103,17 @@
 		INSERT INTO sys_permission(
 			id,
 			name,
-			menu_id,
-			type,
-			url,
+			parent_id,
+			parent_ids,
+			path,
 			title,
 			sort,
+			type,
 			status,
+			component,
+			button_type,
+			icon,
+			level,
 			create_by,
 			create_date,
 			update_by,
@@ -95,12 +123,17 @@
 		) VALUES (
 			#{id},
 			#{name},
-			#{menu.id},
-			#{type},
-			#{url},
+			#{parentId},
+			#{parentIds},
+			#{path},
 			#{title},
 			#{sort},
+			#{type},
 			#{status},
+			#{component},
+			#{buttonType},
+			#{icon},
+			#{level},
 			#{createBy},
 			#{createDate},
 			#{updateBy},
@@ -115,12 +148,17 @@
 		UPDATE sys_permission SET
 			id = #{id},
 			name = #{name},
-			menu_id = #{menu.id},
-			type = #{type},
-			url = #{url},
+			parent_id = #{parentId},
+			parent_ids = #{parentIds},
+			path = #{path},
 			title = #{title},
 			sort = #{sort},
+			type = #{type},
 			status = #{status},
+			level = #{leve},
+			component = #{component},
+			icon = #{icon},
+			button_type = #{buttonType},
 			update_by = #{updateBy},
 			update_date = #{updateDate},
 			remarks = #{remarks}

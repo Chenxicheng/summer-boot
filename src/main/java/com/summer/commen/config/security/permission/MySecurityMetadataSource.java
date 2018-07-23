@@ -1,5 +1,7 @@
 package com.summer.commen.config.security.permission;
 
+import com.google.common.base.Splitter;
+import com.summer.commen.constant.CommenConstant;
 import com.summer.commen.utils.StringUtils;
 import com.summer.modules.sys.entity.Permission;
 import com.summer.modules.sys.service.PermissionService;
@@ -36,15 +38,22 @@ public class MySecurityMetadataSource implements FilterInvocationSecurityMetadat
 
         map = new HashMap<>(16);
         Collection<ConfigAttribute> configAttributes;
-        ConfigAttribute cfg;
-        List<Permission> permissions = permissionService.findList(new Permission());
+//        ConfigAttribute cfg;
+        Permission p = new Permission();
+        p.setType(CommenConstant.PERMISSION_TYPE_BUTTON);
+        List<Permission> permissions = permissionService.findList(p);
         for(Permission permission : permissions) {
             configAttributes = new ArrayList<>();
-            cfg = new SecurityConfig(permission.getName());
+            String roleNames = permission.getRoleNames();
+            List<String> roleList = Splitter.on(",").omitEmptyStrings().trimResults().splitToList(roleNames);
+            for (String r: roleList) {
+                configAttributes.add(new SecurityConfig(r));
+            }
+//            cfg = new SecurityConfig();
             //作为MyAccessDecisionManager类的decide的第三个参数
-            configAttributes.add(cfg);
+
             //用权限的path作为map的key，用ConfigAttribute的集合作为value
-            map.put(permission.getUrl(), configAttributes);
+            map.put(permission.getPath(), configAttributes);
         }
 
     }
