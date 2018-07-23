@@ -103,12 +103,12 @@ public abstract class AbstractBaseService<D extends CrudDao<T>, T extends DataEn
 
     /**
      * 删除全部数据
-     * @param entitys
+     * @param idList
      */
     @Transactional(readOnly = false)
-    public void deleteAll(List<T> entitys) {
-        for (T entity : entitys) {
-            dao.delete(entity);
+    public void deleteAll(List<String> idList) {
+        for (String id : idList) {
+            dao.delete(id);
         }
     }
 

@@ -19,7 +19,7 @@ public class TreeEntity<T> extends DataEntity<T> {
         super();
     }
 
-    public TreeEntity(String id) {
-        super(id);
+    public TreeEntity(String parentId) {
+        this.parentId = parentId;
     }
 }

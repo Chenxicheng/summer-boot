@@ -63,18 +63,18 @@ public class SummerBootApplicationTests {
 		System.out.println("*****************   插入完成    **********************");
 	}
 
-	@Test
-	public void testPermission () {
-		Permission permission = new Permission();
-		permission.setParentId("1");
-		permission.setParentIds("0,1");
-		permission.setUrl("/api/test/bye");
-		permission.setMethod("get");
-		permission.setName("bye");
-		permission.setSort(10);
-		permissionService.save(permission);
-		System.out.println("*****************   插入完成    **********************");
-	}
+//	@Test
+//	public void testPermission () {
+//		Permission permission = new Permission();
+//		permission.setParentId("1");
+//		permission.setParentIds("0,1");
+//		permission.setUrl("/api/test/bye");
+//		permission.setMethod("get");
+//		permission.setName("bye");
+//		permission.setSort(10);
+//		permissionService.save(permission);
+//		System.out.println("*****************   插入完成    **********************");
+//	}
 
 	@Test
 	public void testPermissionRole() {

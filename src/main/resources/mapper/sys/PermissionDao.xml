@@ -5,11 +5,12 @@
     <sql id="permissionColumns">
     	a.id AS "id",
     	a.name AS "name",
-    	a.parent_id AS "parentId",
-    	a.parent_ids AS "parentIds",
+    	a.menu_id AS "menu.id",
+    	a.type AS "type",
     	a.url AS "url",
-    	a.method AS "method",
+    	a.title AS "title",
     	a.sort AS "sort",
+    	a.status AS "status",
     	a.remarks AS "remarks",
     	a.create_date AS "createDate",
     	a.create_by AS "createBy",
@@ -60,10 +61,9 @@
 		SELECT
 		DISTINCT(p.id) AS "id",
 		p.name AS "name",
-		p.parent_id AS "parentId",
-		p.parent_ids AS "parentIds",
+		p.menu_id AS "menu.id",
 		p.url AS "url",
-		p.method AS "method"
+		p.title AS "title"
 		FROM
 		sys_user a
 		LEFT JOIN sys_user_role ur ON ur.sys_user_id =a.id
@@ -80,11 +80,12 @@
 		INSERT INTO sys_permission(
 			id,
 			name,
-			parent_id,
-			parent_ids,
+			menu_id,
+			type,
 			url,
-			method,
+			title,
 			sort,
+			status,
 			create_by,
 			create_date,
 			update_by,
@@ -94,11 +95,12 @@
 		) VALUES (
 			#{id},
 			#{name},
-			#{parentId},
-			#{parentIds},
+			#{menu.id},
+			#{type},
 			#{url},
-			#{method},
+			#{title},
 			#{sort},
+			#{status},
 			#{createBy},
 			#{createDate},
 			#{updateBy},
@@ -113,11 +115,12 @@
 		UPDATE sys_permission SET
 			id = #{id},
 			name = #{name},
-			parent_id = #{parentId},
-			parent_ids = #{parentIds},
+			menu_id = #{menu.id},
+			type = #{type},
 			url = #{url},
-			method = #{method},
+			title = #{title},
 			sort = #{sort},
+			status = #{status},
 			update_by = #{updateBy},
 			update_date = #{updateDate},
 			remarks = #{remarks}

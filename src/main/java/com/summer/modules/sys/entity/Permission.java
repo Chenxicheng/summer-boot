@@ -1,6 +1,6 @@
 package com.summer.modules.sys.entity;
 
-import com.summer.commen.base.TreeEntity;
+import com.summer.commen.base.DataEntity;
 import lombok.Data;
 
 /**
@@ -9,12 +9,15 @@ import lombok.Data;
  * @Version: 1.0
  */
 @Data
-public class Permission extends TreeEntity<Permission>{
+public class Permission extends DataEntity<Permission> {
 
+    private String menuId;
     private String name;
+    private String type;
     private String url;
-    private String method;
+    private String title;
     private Integer sort;
+    private String status;
 
     public Permission() {
         super();

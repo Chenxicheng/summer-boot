@@ -20,7 +20,7 @@ public interface BaseService<T> {
 
     void delete (T t);
 
-    void deleteAll (List<T> entitys);
+    void deleteAll (List<String> idList);
 
     void deleteByLogic (T t);
 
