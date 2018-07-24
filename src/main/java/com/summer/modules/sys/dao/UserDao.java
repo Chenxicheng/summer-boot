@@ -4,6 +4,8 @@ import com.summer.commen.base.CrudDao;
 import com.summer.modules.sys.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 @Mapper
 public interface UserDao extends CrudDao<User> {
     /**
@@ -11,7 +13,9 @@ public interface UserDao extends CrudDao<User> {
      * @param user
      * @return
      */
-    User getByUsername(User user);
+    User getByUsername(String username);
+
+    List<User> findListByUsername(String username);
 
     /**
      * 根据用户id，删除用户角色关系表中数据

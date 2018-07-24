@@ -31,9 +31,18 @@
 	</select>
 	
 	<!-- 根据登录名查询用户 -->
-	<select id="getByUsername" resultType="User" parameterType="User">
+	<select id="getByUsername" resultType="User">
 		SELECT
 			<include refid="userColumns"/>
+		FROM sys_user a
+		<include refid="userJoins"/>
+		WHERE a.username = #{username} AND a.del_flag = #{DEL_FLAG_NORMAL}
+	</select>
+
+	<!-- 根据登录名查询用户 -->
+	<select id="findListByUsername" resultType="User">
+		SELECT
+		<include refid="userColumns"/>
 		FROM sys_user a
 		<include refid="userJoins"/>
 		WHERE a.username = #{username} AND a.del_flag = #{DEL_FLAG_NORMAL}

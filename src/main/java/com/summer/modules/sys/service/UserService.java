@@ -9,7 +9,7 @@ public interface UserService extends BaseService<User> {
      * @param username
      * @return
      */
-    User getByUsername(String username);
+    User findListByUsername(String username);
 
     /**
      * 更新密码
@@ -28,4 +28,12 @@ public interface UserService extends BaseService<User> {
      * @param user
      */
     void updateByIsEnable(User user);
+
+    /**
+     * 根据根据用户名获取用户信息
+     * 缓存数据
+     * @param username
+     * @return
+     */
+    User getByUsername (String username);
 }

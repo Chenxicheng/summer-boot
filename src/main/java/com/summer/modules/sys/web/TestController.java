@@ -21,8 +21,8 @@ public class TestController {
 
     @RequestMapping("bye")
     public String bye() {
-        CurrentUser userDetails = (CurrentUser) SecurityContextHolder.getContext().getAuthentication() .getPrincipal();
-        System.out.println(userDetails.getId());
+//        CurrentUser userDetails = (CurrentUser) SecurityContextHolder.getContext().getAuthentication() .getPrincipal();
+//        System.out.println(userDetails.getId());
         return "bye";
     }
 

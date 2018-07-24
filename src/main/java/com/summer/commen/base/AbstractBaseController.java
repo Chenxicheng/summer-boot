@@ -14,7 +14,7 @@ import java.util.List;
 public abstract class AbstractBaseController <S extends BaseService<T>, T extends DataEntity<T>> {
 
     @Autowired
-    private S service;
+    protected S service;
 
     @ModelAttribute
     public T getEntity(@RequestParam(required = false) String id) {
@@ -60,7 +60,7 @@ public abstract class AbstractBaseController <S extends BaseService<T>, T extend
         return ResultJSON.ok(HttpServletResponse.SC_OK, "删除数据成功");
     }
 
-    @RequestMapping(value = "delete", method = RequestMethod.DELETE)
+    @RequestMapping(value = "deleteAll", method = RequestMethod.DELETE)
     @ApiOperation(value = "批量删除数据")
     @ResponseBody
     public ResultJSON deleteAll (String ids) {

@@ -10,9 +10,13 @@ import com.summer.modules.sys.entity.Role;
 import com.summer.modules.sys.entity.User;
 import com.summer.modules.sys.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.cache.annotation.Cacheable;
 
 import java.util.List;
 
@@ -20,6 +24,7 @@ import java.util.List;
  * 系统用户业务层
  */
 @Service
+@CacheConfig(cacheNames = "user")
 @Transactional(readOnly = true)
 public class UserServiceImpl extends AbstractBaseService<UserDao, User> implements UserService {
 
@@ -76,11 +81,12 @@ public class UserServiceImpl extends AbstractBaseService<UserDao, User> implemen
     }
 
     @Override
-    public User getByUsername(String username) {
+    public User findListByUsername(String username) {
         User user = new User();
         user.setUsername(username);
-        user = dao.getByUsername(user);
-        if (user != null && StringUtils.isNotBlank(user.getId())) {
+        List<User> userList = dao.findListByUsername(user.getUsername());
+        if (userList != null && userList.size() == 0) {
+            user = userList.get(0);
             List<Role> roleList = roleDao.findRoleListByUserId(user.getId());
             if (roleList != null && roleList.size() > 0) {
                 user.setRoleList(roleList);
@@ -93,6 +99,7 @@ public class UserServiceImpl extends AbstractBaseService<UserDao, User> implemen
         }
         return null;
     }
+
 
 
     @Override
@@ -115,6 +122,14 @@ public class UserServiceImpl extends AbstractBaseService<UserDao, User> implemen
     public void updateByIsEnable(User user) {
         user.preUpdate();
         dao.updateByStatus(user);
+    }
+
+
+    @Override
+    @Cacheable(key = "'username:'+#username")
+    public User getByUsername(String username) {
+        User user = dao.getByUsername(username);
+        return user;
     }
 
 

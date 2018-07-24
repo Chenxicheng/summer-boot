@@ -3,6 +3,8 @@ package com.summer.commen.base;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.summer.commen.utils.IdGen;
 import com.summer.commen.utils.StringUtils;
+import com.summer.modules.sys.entity.User;
+import com.summer.modules.sys.utils.UserUtils;
 import lombok.Data;
 
 import java.util.Date;
@@ -55,14 +57,27 @@ public class DataEntity<T> extends BaseEntity<T> {
             setId(IdGen.uuid());
         }
         Date now = new Date();
-        this.createBy = "1";
+        User user = UserUtils.getUser();
+        if (user != null && StringUtils.isNotBlank(user.getId())) {
+            this.createBy = user.getId();
+            this.updateBy = user.getId();
+        } else {
+            this.createBy = "1";
+            this.updateBy = "1";
+        }
+
         this.createDate = now;
-        this.updateBy = "1";
+
         this.updateDate = now;
     }
 
     public void preUpdate() {
-        this.updateBy = "1";
+        User user = UserUtils.getUser();
+        if (user != null && StringUtils.isNotBlank(user.getId())) {
+            this.updateBy = user.getId();
+        } else {
+            this.updateBy = "1";
+        }
         this.updateDate = new Date();
     }
 }

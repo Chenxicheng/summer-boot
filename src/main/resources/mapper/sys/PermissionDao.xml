@@ -92,7 +92,7 @@
 		LEFT JOIN sys_user_role ur ON ur.sys_user_id =a.id
 		LEFT JOIN sys_permission_role pr ON pr.sys_role_id = ur.sys_role_id
 		LEFT JOIN sys_permission p ON p.id = pr.sys_permission_id
-		WHERE a.id = #{userId} AND a.type = '1'
+		WHERE a.id = #{userId} AND p.type = '1'
 		ORDER BY p.sort ASC
 	</select>
 
