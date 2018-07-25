@@ -43,6 +43,12 @@ public class SummerBootApplicationTests {
 	}
 
 	@Test
+	public void testUserList () {
+		User list = userService.findListByUsername("admin");
+		System.out.println(list);
+	}
+
+	@Test
 	public void testRoleList () {
 		Page<Role> page = roleService.findPage(new Page<Role>(1, 10), new Role("1"));
 		System.out.println(page);

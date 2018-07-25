@@ -36,7 +36,7 @@
     </sql>
 	
 	<!-- 根据编号获得权限 -->
-	<select id="get" resultType="Permission">
+	<select id="get" resultType="com.summer.modules.sys.entity.Permission">
 		SELECT
 			<include refid="permissionColumns"/>
 		FROM sys_permission a
@@ -46,7 +46,7 @@
 	</select>
 	
 	<!-- 分页查询权限信息 -->
-	<select id="findList" resultType="Permission">
+	<select id="findList" resultType="com.summer.modules.sys.entity.Permission">
 		SELECT
 			<include refid="permissionColumns"/>
 		FROM sys_permission a
@@ -70,7 +70,7 @@
 
 	
 	<!-- 查询全部权限 -->
-	<select id="findAllList" resultType="Permission">
+	<select id="findAllList" resultType="com.summer.modules.sys.entity.Permission">
 		SELECT
 			<include refid="permissionColumns"/>
 		FROM sys_permission a
@@ -79,7 +79,7 @@
 	</select>
 
 	<!-- 查询全部权限 -->
-	<select id="findListByUserId" resultType="Permission">
+	<select id="findListByUserId" resultType="com.summer.modules.sys.entity.Permission">
 		SELECT
 		DISTINCT(p.id) AS "id",
 		p.name AS "name",
@@ -183,7 +183,7 @@
 	</update>
 	
 	<!-- 根据实体名称和字段名称和字段值获取唯一记录 -->
-	<select id="findUniqueByProperty"  resultType="Permission" statementType="STATEMENT">
+	<select id="findUniqueByProperty"  resultType="com.summer.modules.sys.entity.Permission" statementType="STATEMENT">
 		select * from sys_permission where ${propertyName} = '${value}'
 	</select>
 

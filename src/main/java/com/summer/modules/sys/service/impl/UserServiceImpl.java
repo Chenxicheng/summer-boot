@@ -82,11 +82,9 @@ public class UserServiceImpl extends AbstractBaseService<UserDao, User> implemen
 
     @Override
     public User findListByUsername(String username) {
-        User user = new User();
-        user.setUsername(username);
-        List<User> userList = dao.findListByUsername(user.getUsername());
-        if (userList != null && userList.size() == 0) {
-            user = userList.get(0);
+        List<User> userList = dao.findListByUsername(username);
+        if (userList != null && userList.size() == 1) {
+            User user = userList.get(0);
             List<Role> roleList = roleDao.findRoleListByUserId(user.getId());
             if (roleList != null && roleList.size() > 0) {
                 user.setRoleList(roleList);

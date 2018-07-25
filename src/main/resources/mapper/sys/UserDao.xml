@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.summer.modules.sys.dao.UserDao">
-	
     <sql id="userColumns">
     	a.id AS "id",
     	a.name AS "name",
@@ -31,25 +30,24 @@
 	</select>
 	
 	<!-- 根据登录名查询用户 -->
-	<select id="getByUsername" resultType="User">
+	<select id="getByUsername" resultType="com.summer.modules.sys.entity.User">
 		SELECT
 			<include refid="userColumns"/>
 		FROM sys_user a
 		<include refid="userJoins"/>
-		WHERE a.username = #{username} AND a.del_flag = #{DEL_FLAG_NORMAL}
+		WHERE a.username = #{username} AND a.del_flag = '0'
 	</select>
 
 	<!-- 根据登录名查询用户 -->
-	<select id="findListByUsername" resultType="User">
+	<select id="findListByUsername" resultType="com.summer.modules.sys.entity.User">
 		SELECT
 		<include refid="userColumns"/>
 		FROM sys_user a
-		<include refid="userJoins"/>
-		WHERE a.username = #{username} AND a.del_flag = #{DEL_FLAG_NORMAL}
+		WHERE a.username = #{username} AND a.del_flag = '0'
 	</select>
 	
 	<!-- 分页查询用户信息 -->
-	<select id="findList" resultType="User">
+	<select id="findList" resultType="com.summer.modules.sys.entity.User">
 		SELECT
 			<include refid="userColumns"/>
 		FROM sys_user a
@@ -121,7 +119,7 @@
 	<!--</select>-->
 	
 	<!-- 查询全部用户 -->
-	<select id="findAllList" resultType="User">
+	<select id="findAllList" resultType="com.summer.modules.sys.entity.User">
 		SELECT
 			<include refid="userColumns"/>
 		FROM sys_user a
@@ -250,7 +248,7 @@
 	</update>
 	
 	<!-- 根据实体名称和字段名称和字段值获取唯一记录 -->
-	<select id="findUniqueByProperty"  resultType="User" statementType="STATEMENT">
+	<select id="findUniqueByProperty"  resultType="com.summer.modules.sys.entity.User" statementType="STATEMENT">
 		select * from sys_user where ${propertyName} = '${value}'
 	</select>
 

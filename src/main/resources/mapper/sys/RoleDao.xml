@@ -18,7 +18,7 @@
     </sql>
 	
 	<!-- 根据编号获得用户 -->
-	<select id="get" resultType="Role">
+	<select id="get" resultType="com.summer.modules.sys.entity.Role">
 		SELECT
 			<include refid="roleColumns"/>
 		FROM sys_role a
@@ -27,7 +27,7 @@
 	</select>
 	
 	<!-- 分页查询用户信息 -->
-	<select id="findList" resultType="Role">
+	<select id="findList" resultType="com.summer.modules.sys.entity.Role">
 		SELECT
 			<include refid="roleColumns"/>
 		FROM sys_role a
@@ -41,7 +41,7 @@
 	</select>
 
 	<!-- 根据用户id获取该用户所拥有的角色 -->
-	<select id="findRoleListByUserId" resultType="Role">
+	<select id="findRoleListByUserId" resultType="com.summer.modules.sys.entity.Role">
 		SELECT
 			a.sys_role_id AS "id",
 			r.`name` AS "name",
@@ -55,7 +55,7 @@
 
 	
 	<!-- 查询全部用户 -->
-	<select id="findAllList" resultType="Role">
+	<select id="findAllList" resultType="com.summer.modules.sys.entity.Role">
 		SELECT
 			<include refid="roleColumns"/>
 		FROM sys_role a
@@ -132,7 +132,7 @@
 	</update>
 	
 	<!-- 根据实体名称和字段名称和字段值获取唯一记录 -->
-	<select id="findUniqueByProperty"  resultType="Role" statementType="STATEMENT">
+	<select id="findUniqueByProperty"  resultType="com.summer.modules.sys.entity.Role" statementType="STATEMENT">
 		select * from sys_role where ${propertyName} = '${value}'
 	</select>
 
