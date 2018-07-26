@@ -82,11 +82,19 @@
 	<select id="findListByUserId" resultType="com.summer.modules.sys.entity.Permission">
 		SELECT
 		DISTINCT(p.id) AS "id",
-		p.name AS "name",
-		p.parent_id AS "parentId",
-		p.parent_ids AS "parentIds",
-		p.path AS "path",
-		p.name AS "name"
+		a.name AS "name",
+    	a.parent_id AS "parentId",
+    	a.parent_ids AS "parentIds",
+    	a.path AS "path",
+    	a.title AS "title",
+    	a.sort AS "sort",
+    	a.icon AS "icon",
+    	a.type AS "type",
+    	a.status AS "status",
+    	a.button_type AS "button",
+    	a.level AS "level",
+    	a.component AS "component",
+    	a.del_flag AS "delFlag"
 		FROM
 		sys_user a
 		LEFT JOIN sys_user_role ur ON ur.sys_user_id =a.id
