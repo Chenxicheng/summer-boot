@@ -62,6 +62,7 @@ mybatis-plus:
     multiple-result-sets-enabled: true
     lazy-loading-enabled: true
     aggressive-lazy-loading: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 
 jwt:

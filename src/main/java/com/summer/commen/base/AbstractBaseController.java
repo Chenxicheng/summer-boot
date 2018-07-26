@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
-public abstract class AbstractBaseController <S extends BaseService<T>, T extends DataEntity<T>> {
+public abstract class AbstractBaseController <S extends BaseService<T>, T> {
 
     @Autowired
     protected S service;

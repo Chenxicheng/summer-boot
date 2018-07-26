@@ -44,7 +44,7 @@ public class SummerBootApplicationTests {
 
 	@Test
 	public void testUserList () {
-		User list = userService.findListByUsername("admin");
+		User list = userService.getByUsername("admin");
 		System.out.println(list);
 	}
 

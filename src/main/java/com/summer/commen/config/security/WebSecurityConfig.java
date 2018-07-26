@@ -92,6 +92,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 //需要身份认证
                 .authenticated()
                 .and()
+                // 允许跨域请求
+                .cors()
+                .and()
                 //关闭跨站请求防护
                 .csrf().disable()
                 //前后端分离采用JWT 不需要session

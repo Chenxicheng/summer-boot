@@ -22,7 +22,7 @@ public class UserController extends AbstractBaseController<UserService, User>{
     public ResultJSON getUserInfo() {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = service.getByUsername(userDetails.getUsername());
-        return ResultJSON.ok(200, "success");
+        return ResultJSON.ok(200, "success").put("user", user);
     }
 
 }
