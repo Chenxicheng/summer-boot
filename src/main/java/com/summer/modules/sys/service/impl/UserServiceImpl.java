@@ -89,7 +89,7 @@ public class UserServiceImpl extends AbstractBaseService<UserDao, User> implemen
             if (roleList != null && roleList.size() > 0) {
                 user.setRoleList(roleList);
             }
-            List<Permission> permissionList = permissionDao.findListByUserId(user.getId());
+            List<Permission> permissionList = permissionDao.findPromissionsByUserId(user.getId());
             if (permissionList != null && permissionList.size() > 0) {
                 user.setPermissionList(permissionList);
             }

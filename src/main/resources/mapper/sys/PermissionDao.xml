@@ -78,23 +78,23 @@
 		WHERE a.del_flag = #{DEL_FLAG_NORMAL}
 	</select>
 
-	<!-- 查询全部权限 -->
-	<select id="findListByUserId" resultType="com.summer.modules.sys.entity.Permission">
+	<!-- 根据userId查询拥有api权限 -->
+	<select id="findPromissionsByUserId" resultType="com.summer.modules.sys.entity.Permission">
 		SELECT
 		DISTINCT(p.id) AS "id",
-		a.name AS "name",
-    	a.parent_id AS "parentId",
-    	a.parent_ids AS "parentIds",
-    	a.path AS "path",
-    	a.title AS "title",
-    	a.sort AS "sort",
-    	a.icon AS "icon",
-    	a.type AS "type",
-    	a.status AS "status",
-    	a.button_type AS "button",
-    	a.level AS "level",
-    	a.component AS "component",
-    	a.del_flag AS "delFlag"
+		p.name AS "name",
+    	p.parent_id AS "parentId",
+    	p.parent_ids AS "parentIds",
+    	p.path AS "path",
+    	p.title AS "title",
+    	p.sort AS "sort",
+    	p.icon AS "icon",
+    	p.type AS "type",
+    	p.status AS "status",
+    	p.button_type AS "button",
+    	p.level AS "level",
+    	p.component AS "component",
+    	p.del_flag AS "delFlag"
 		FROM
 		sys_user a
 		LEFT JOIN sys_user_role ur ON ur.sys_user_id =a.id
@@ -104,6 +104,31 @@
 		ORDER BY p.sort ASC
 	</select>
 
+	<!-- 查询全部权限 -->
+	<select id="findMenuListByUserId" resultType="com.summer.modules.sys.entity.Permission">
+		SELECT
+		DISTINCT(p.id) AS "id",
+		p.name AS "name",
+		p.parent_id AS "parentId",
+		p.parent_ids AS "parentIds",
+		p.path AS "path",
+		p.title AS "title",
+		p.sort AS "sort",
+		p.icon AS "icon",
+		p.type AS "type",
+		p.status AS "status",
+		p.button_type AS "button",
+		p.level AS "level",
+		p.component AS "component",
+		p.del_flag AS "delFlag"
+		FROM
+		sys_user a
+		LEFT JOIN sys_user_role ur ON ur.sys_user_id =a.id
+		LEFT JOIN sys_permission_role pr ON pr.sys_role_id = ur.sys_role_id
+		LEFT JOIN sys_permission p ON p.id = pr.sys_permission_id
+		WHERE a.id = #{userId} and p.status = '0'
+		ORDER BY p.sort ASC
+	</select>
 
 	
 	<!-- 插入权限 -->

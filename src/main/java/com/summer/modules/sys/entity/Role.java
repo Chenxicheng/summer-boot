@@ -9,6 +9,9 @@ import java.util.List;
 
 @Data
 public class Role extends DataEntity<Role>{
+
+    public static final String ROLE_ADMIN_ID = "1";
+
     @ApiModelProperty(value = "角色英文名称 以ROLE_开头")
     private String name; // 英文名称
     @ApiModelProperty(value = "角色中文名称")

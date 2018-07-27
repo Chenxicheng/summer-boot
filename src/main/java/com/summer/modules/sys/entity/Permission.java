@@ -36,8 +36,6 @@ public class Permission extends TreeEntity<Permission>{
     private String buttonType;
     @ApiModelProperty(value = "是否启用 0启用 -1禁用")
     private String status;
-    @ApiModelProperty(value = "子菜单/权限")
-    private List<Permission> children = Lists.newArrayList();
 
 
     private String roleNames;

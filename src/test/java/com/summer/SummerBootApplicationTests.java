@@ -1,5 +1,6 @@
 package com.summer;
 
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.google.common.collect.Lists;
 import com.summer.modules.sys.entity.Permission;
@@ -12,6 +13,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
@@ -28,6 +30,9 @@ public class SummerBootApplicationTests {
 
 	@Autowired
 	private PermissionService permissionService;
+
+	@Autowired
+	private StringRedisTemplate stringRedisTemplate;
 
 	@Test
 	public void contextLoads() {
@@ -90,5 +95,18 @@ public class SummerBootApplicationTests {
 
 	    roleService.accessPermission(role, pIdList);
     }
+
+	@Test
+	public void testPermissionList() {
+		List<Permission> list = permissionService.findMenuByUserId("1");
+		JSONObject json = new JSONObject();
+		json.put("list", list);
+		System.out.println(json);
+	}
+
+	@Test
+	public void testRedis () {
+		stringRedisTemplate.delete("permission::userMenuList:1");
+	}
 
 }

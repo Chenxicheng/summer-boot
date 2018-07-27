@@ -9,5 +9,7 @@ import com.summer.modules.sys.entity.Permission;
 
 @Mapper
 public interface PermissionDao extends CrudDao<Permission>{
-    List<Permission> findListByUserId (String userId);
+    List<Permission> findPromissionsByUserId (String userId);
+
+    List<Permission> findMenuListByUserId (String userId);
 }

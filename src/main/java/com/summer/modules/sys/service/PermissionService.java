@@ -19,4 +19,10 @@ public interface PermissionService extends BaseService<Permission>{
      */
     List<Permission> findMenuByUserId (String userId);
 
+    /**
+     * 获取所有集合
+     * @return
+     */
+    List<Permission> getAllList ();
+
 }
