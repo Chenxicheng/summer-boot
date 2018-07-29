@@ -2,6 +2,8 @@ package com.summer.modules.sys.service.impl;
 
 import com.google.common.collect.Lists;
 import com.summer.commen.base.AbstractBaseService;
+import com.summer.commen.constant.CommenConstant;
+import com.summer.commen.utils.StringUtils;
 import com.summer.commen.utils.TreeUtils;
 import com.summer.modules.sys.dao.PermissionDao;
 import com.summer.modules.sys.dao.RoleDao;
@@ -52,9 +54,12 @@ public class PermissionServiceImpl extends AbstractBaseService<PermissionDao, Pe
     @Transactional(readOnly = false)
     @CacheEvict(key = "'menuList'")
     public void insert(Permission permission) {
-
+        if (StringUtils.isBlank(permission.getParentIds())) {
+            permission.setParentIds(permission.getParentId());
+        } else {
+            permission.setParentIds(permission.getParentIds()+","+permission.getParentId());
+        }
         super.insert(permission);
-
         /**
          * 每次新建权限，自动给超级管理员添加对应权限
          */

@@ -3,6 +3,7 @@ package com.summer;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.google.common.collect.Lists;
+import com.summer.commen.constant.CommenConstant;
 import com.summer.modules.sys.entity.Permission;
 import com.summer.modules.sys.entity.Role;
 import com.summer.modules.sys.entity.User;
@@ -77,15 +78,38 @@ public class SummerBootApplicationTests {
 	@Test
 	public void testPermission () {
 		Permission permission = new Permission();
-		permission.setParentId("1");
-		permission.setParentIds("0,1");
-		permission.setPath("/api/test/bye");
-		permission.setTitle("get");
-		permission.setName("bye");
+		permission.setParentId("0");
+		permission.setTitle("系统管理");
+		permission.setType(CommenConstant.PERMISSION_TYPE_PAGE);
+		permission.setIcon("ios-book");
+		permission.setName("sysMain");
+		permission.setLevel(CommenConstant.PERMISSION_LEVEL_ONE);
 		permission.setSort(10);
+		permission.setPath("/sysManage");
+		permission.setComponent("sysManage");
 		permissionService.save(permission);
 		System.out.println("*****************   插入完成    **********************");
 	}
+
+    @Test
+    public void testPermissionCh () {
+	    Permission parent = permissionService.get("571152ea4b0546c78552b62fc2f984f7");
+
+        Permission permission = new Permission();
+        permission.setParentId(parent.getId());
+        permission.setParentIds(parent.getParentIds());
+        permission.setTitle("角色管理");
+        permission.setType(CommenConstant.PERMISSION_TYPE_PAGE);
+        permission.setIcon("ios-book");
+        permission.setName("role-manage");
+        permission.setStatus(CommenConstant.COMMEN_STATUS_USING);
+        permission.setLevel(CommenConstant.PERMISSION_LEVEL_ONE);
+        permission.setSort(10);
+        permission.setPath("role-manage");
+        permission.setComponent("@/sys/role-manage/roleManageList");
+        permissionService.save(permission);
+        System.out.println("*****************   插入完成    **********************");
+    }
 
 	@Test
 	public void testPermissionRole() {

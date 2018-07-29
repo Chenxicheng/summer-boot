@@ -56,8 +56,9 @@ public class DataEntity<T> extends BaseEntity<T> {
         if (getId() == null || StringUtils.isBlank(getId())) {
             setId(IdGen.uuid());
         }
+        User user = null;
         Date now = new Date();
-        User user = UserUtils.getUser();
+//        user = UserUtils.getUser();
         if (user != null && StringUtils.isNotBlank(user.getId())) {
             this.createBy = user.getId();
             this.updateBy = user.getId();
@@ -72,7 +73,8 @@ public class DataEntity<T> extends BaseEntity<T> {
     }
 
     public void preUpdate() {
-        User user = UserUtils.getUser();
+        User user = null;
+//        user = UserUtils.getUser();
         if (user != null && StringUtils.isNotBlank(user.getId())) {
             this.updateBy = user.getId();
         } else {

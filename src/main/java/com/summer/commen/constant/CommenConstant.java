@@ -31,4 +31,13 @@ public interface CommenConstant {
      */
     static final String PERMISSION_TYPE_THREE = "3";
 
+    /**
+     * 全局 启用状态 0
+     */
+    static final String COMMEN_STATUS_USING= "0";
+    /**
+     * 全局 禁用状态 1
+     */
+    static final String COMMEN_STATUS_FORBIDDEN = "1";
+
 }
