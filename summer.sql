@@ -11,7 +11,7 @@
  Target Server Version : 50717
  File Encoding         : utf-8
 
- Date: 07/23/2018 22:58:41 PM
+ Date: 09/25/2018 22:50:56 PM
 */
 
 SET NAMES utf8mb4;
@@ -48,7 +48,7 @@ CREATE TABLE `sys_permission` (
 --  Records of `sys_permission`
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_permission` VALUES ('1', '0', '0', '系统', '0', 'root', '系统', '0', null, '0', null, null, '1', '1', '2018-07-23 21:45:49', '1', '2018-07-23 21:45:49', null, '0'), ('6d21c5dcad5c4c8390c8a8618bb6d2a5', '1', '0,1', 'hello', '1', '/api/test/hello', 'hello', '10', null, '0', null, null, '3', '1', '2018-07-23 21:45:50', '1', '2018-07-23 21:45:50', null, '0'), ('ed2b75c3da2a49f29aa6518bc2b95eb7', '1', '0,1', 'bye', '1', '/api/test/bye', 'get', '10', null, '0', null, null, '3', '1', '2018-07-23 21:45:55', '1', '2018-07-23 21:45:55', null, '0');
+INSERT INTO `sys_permission` VALUES ('571152ea4b0546c78552b62fc2f984f7', '0', '0', 'sysMain', '0', '/sysManage', '系统管理', '10', null, '0', 'ios-book', 'sysManage', '1', '1', '2018-07-28 21:17:37', '1', '2018-07-28 21:17:37', null, '0'), ('c60e645bb8514cd3a0bcbdfde60e26e8', '571152ea4b0546c78552b62fc2f984f7', '0,571152ea4b0546c78552b62fc2f984f7', 'user-manage', '0', 'user-manage', '用户管理', '10', null, '0', 'ios-book', 'sys/user-manage/userManageList', '2', '1', '2018-07-29 09:56:29', '1', '2018-07-29 09:56:29', null, '0'), ('dcadebf0d1f24cd1b8bdd98b1e9b0572', '571152ea4b0546c78552b62fc2f984f7', '0,571152ea4b0546c78552b62fc2f984f7', 'role-manage', '0', 'role-manage', '角色管理', '10', null, '0', 'ios-book', 'sys/role-manage/roleManageList', '2', '1', '2018-07-29 09:56:32', '1', '2018-07-29 09:56:32', null, '0');
 COMMIT;
 
 -- ----------------------------
@@ -64,7 +64,7 @@ CREATE TABLE `sys_permission_role` (
 --  Records of `sys_permission_role`
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_permission_role` VALUES ('1', '6d21c5dcad5c4c8390c8a8618bb6d2a5'), ('1', 'ed2b75c3da2a49f29aa6518bc2b95eb7'), ('5746e24e182544fa8f2483bb8c8843cc', 'ed2b75c3da2a49f29aa6518bc2b95eb7');
+INSERT INTO `sys_permission_role` VALUES ('1', '571152ea4b0546c78552b62fc2f984f7'), ('1', 'c60e645bb8514cd3a0bcbdfde60e26e8'), ('1', 'dcadebf0d1f24cd1b8bdd98b1e9b0572');
 COMMIT;
 
 -- ----------------------------
