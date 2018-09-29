@@ -15,7 +15,6 @@ import java.util.List;
  */
 @Data
 public class Permission extends TreeEntity<Permission>{
-    private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "菜单/权限名称")
     private String name;
