@@ -5,7 +5,6 @@
     	a.id AS "id",
     	a.name AS "name",
     	a.username AS "username",
-    	a.password AS "password",
     	a.phone AS "phone",
     	a.email AS "email",
     	a.status AS "status",

@@ -10,6 +10,7 @@ import java.util.List;
 @Data
 public class User extends DataEntity<User> {
 
+    private static final long serialVersionUID = 1L;
     /**
      * 是否启用 启用 0
      */

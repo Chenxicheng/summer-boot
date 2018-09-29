@@ -16,18 +16,6 @@ public abstract class AbstractBaseController <S extends BaseService<T>, T> {
     @Autowired
     protected S service;
 
-    @ModelAttribute
-    public T getEntity(@RequestParam(required = false) String id) {
-        T entity = null;
-        if (StringUtils.isNotBlank(id)) {
-            entity = service.get(id);
-        }
-        if (entity == null) {
-            entity = (T)new Object();
-        }
-        return entity;
-    }
-
     @RequestMapping(value = "get/{id}", method = RequestMethod.GET)
     @ApiOperation(value = "通过id获取")
     @ResponseBody
@@ -39,7 +27,7 @@ public abstract class AbstractBaseController <S extends BaseService<T>, T> {
     @RequestMapping(value = "findPage", method = RequestMethod.GET)
     @ApiOperation(value = "分页查询数据")
     @ResponseBody
-    public ResultJSON findPage(T entity, int pageNo, int pageSize) {
+    public ResultJSON findPage(@ModelAttribute T entity, int pageNo, int pageSize) {
         Page<T> page = service.findPage(new Page<T>(pageNo, pageSize), entity);
         return ResultJSON.ok(HttpServletResponse.SC_OK, "success").put("list", page.getRecords()).put("count", page.getTotal());
     }
@@ -52,7 +40,7 @@ public abstract class AbstractBaseController <S extends BaseService<T>, T> {
         return ResultJSON.ok(HttpServletResponse.SC_OK, "保存数据成功");
     }
 
-    @RequestMapping(value = "delete", method = RequestMethod.DELETE)
+    @RequestMapping(value = "delete/", method = RequestMethod.DELETE)
     @ApiOperation(value = "通过id删除数据")
     @ResponseBody
     public ResultJSON delete(T entity) {

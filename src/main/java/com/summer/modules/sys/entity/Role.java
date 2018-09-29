@@ -9,6 +9,7 @@ import java.util.List;
 
 @Data
 public class Role extends DataEntity<Role>{
+    private static final long serialVersionUID = 1L;
 
     public static final String ROLE_ADMIN_ID = "1";
 
