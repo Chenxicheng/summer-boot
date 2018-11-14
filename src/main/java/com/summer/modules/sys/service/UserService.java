@@ -9,7 +9,7 @@ public interface UserService extends BaseService<User> {
      * @param username
      * @return
      */
-    User findListByUsername(String username);
+    User findByUsername(String username);
 
     /**
      * 更新密码

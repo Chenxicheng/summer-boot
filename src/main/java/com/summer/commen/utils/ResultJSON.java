@@ -2,6 +2,7 @@ package com.summer.commen.utils;
 
 import com.alibaba.fastjson.JSONObject;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
@@ -68,9 +69,9 @@ public class ResultJSON extends JSONObject implements Serializable{
      * @param message 正确信息
      * @return
      */
-    public static ResultJSON ok(String message) {
+    /*public static ResultJSON ok(String message) {
         return ok().put("message", message);
-    }
+    }*/
 
     /**
      * 执行正确
@@ -80,6 +81,15 @@ public class ResultJSON extends JSONObject implements Serializable{
      */
     public static ResultJSON ok(Integer code, String message) {
         return ok().put("code", code).put("message", message);
+    }
+
+    /**
+     * 执行正确
+     * @param message 信息
+     * @return
+     */
+    public static ResultJSON ok(String message) {
+        return ok().put("code", HttpServletResponse.SC_OK).put("message", message);
     }
 
     /**

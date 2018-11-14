@@ -81,7 +81,8 @@ public class UserServiceImpl extends AbstractBaseService<UserDao, User> implemen
     }
 
     @Override
-    public User findListByUsername(String username) {
+    @Cacheable(key="#username")
+    public User findByUsername(String username) {
         List<User> userList = dao.findListByUsername(username);
         if (userList != null && userList.size() == 1) {
             User user = userList.get(0);
