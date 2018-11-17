@@ -83,4 +83,9 @@ public class PermissionServiceImpl extends AbstractBaseService<PermissionDao, Pe
         stringRedisTemplate.delete("permission::allList");
     }
 
+    @Override
+    public void deleteByLogic(String id) {
+
+    }
+
 }

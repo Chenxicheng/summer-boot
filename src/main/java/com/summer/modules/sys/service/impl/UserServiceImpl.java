@@ -71,6 +71,11 @@ public class UserServiceImpl extends AbstractBaseService<UserDao, User> implemen
         }
     }
 
+    @Override
+    public void deleteByLogic(String id) {
+
+    }
+
     /**
      * 加密密码
      * @param password
@@ -80,6 +85,11 @@ public class UserServiceImpl extends AbstractBaseService<UserDao, User> implemen
         return new BCryptPasswordEncoder().encode(password);
     }
 
+    /**
+     * 缓存用户信息
+     * @param username
+     * @return
+     */
     @Override
     @Cacheable(key="#username")
     public User findByUsername(String username) {

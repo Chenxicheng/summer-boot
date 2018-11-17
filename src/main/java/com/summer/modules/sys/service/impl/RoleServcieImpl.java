@@ -26,4 +26,9 @@ public class RoleServcieImpl extends AbstractBaseService<RoleDao, Role> implemen
         dao.deletePermissionRole(role);
         dao.insertPermissionRole(role);
     }
+
+    @Override
+    public void deleteByLogic(String id) {
+
+    }
 }

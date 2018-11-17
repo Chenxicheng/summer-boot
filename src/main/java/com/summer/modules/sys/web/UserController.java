@@ -21,17 +21,17 @@ public class UserController extends AbstractBaseController<UserService, User>{
     @Autowired
     private SecurityUtils securityUtils;
 
-    @ModelAttribute
-    public User getEntity(@RequestParam(required = false) String id) {
-        User entity = null;
-        if (StringUtils.isNotBlank(id)) {
-            entity = service.get(id);
-        }
-        if (entity == null) {
-            entity = new User();
-        }
-        return entity;
-    }
+//    @ModelAttribute
+//    public User getEntity(@RequestParam(required = false) String id) {
+//        User entity = null;
+//        if (StringUtils.isNotBlank(id)) {
+//            entity = service.get(id);
+//        }
+//        if (entity == null) {
+//            entity = new User();
+//        }
+//        return entity;
+//    }
 
     @RequestMapping(value = "getUserInfo",  method = RequestMethod.GET)
     @ApiOperation(value = "获取当前登陆用户者信息")
@@ -39,5 +39,11 @@ public class UserController extends AbstractBaseController<UserService, User>{
         User user = securityUtils.getCurrUser();
         user.setPassword(null);
         return ResultJSON.ok("success").put("user", user);
+    }
+
+    @RequestMapping(value = "verifyUsername",  method = RequestMethod.GET)
+    @ApiOperation(value = "校验用户名是否重复")
+    public ResultJSON verifyUsername(String username) {
+        return ResultJSON.ok("success");
     }
 }

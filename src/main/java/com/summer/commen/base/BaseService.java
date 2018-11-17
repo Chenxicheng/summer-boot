@@ -12,17 +12,17 @@ public interface BaseService<T> {
 
     List<T> findList(T t);
 
-    void save (T t);
-
     void insert (T t);
 
     void update (T t);
 
     void delete (T t);
 
+    void delete (String id);
+
     void deleteAll (List<String> idList);
 
     void deleteByLogic (T t);
 
-
+    void deleteByLogic (String id);
 }

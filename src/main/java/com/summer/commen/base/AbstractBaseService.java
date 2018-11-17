@@ -1,6 +1,7 @@
 package com.summer.commen.base;
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.summer.commen.utils.SecurityUtils;
 import com.summer.commen.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -55,26 +56,19 @@ public abstract class AbstractBaseService<D extends CrudDao<T>, T extends DataEn
     }
 
     /**
-     * 保存数据（插入或更新）
+     * 新增插入数据
      * @param entity
      */
-    @Transactional(readOnly = false)
-    public void save(T entity) {
-        if (StringUtils.isBlank(entity.getId())){
-//            entity.preInsert();
-            insert(entity);
-        }else{
-//            entity.preUpdate();
-            update(entity);
-        }
-    }
-
     @Transactional(readOnly = false)
     public void insert(T entity) {
         entity.preInsert();
         dao.insert(entity);
     }
 
+    /**
+     * 修改编辑数据
+     * @param entity
+     */
     @Transactional(readOnly = false)
     public void update(T entity) {
         entity.preUpdate();
@@ -88,6 +82,11 @@ public abstract class AbstractBaseService<D extends CrudDao<T>, T extends DataEn
     @Transactional(readOnly = false)
     public void delete(T entity) {
         dao.delete(entity);
+    }
+
+    @Transactional(readOnly = false)
+    public void delete(String id) {
+        dao.delete(id);
     }
 
 

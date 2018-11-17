@@ -2,6 +2,8 @@ package com.summer.commen.base;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.summer.commen.utils.IdGen;
+import com.summer.commen.utils.SecurityUtils;
+import com.summer.commen.utils.SpringContextHolder;
 import com.summer.commen.utils.StringUtils;
 import com.summer.modules.sys.entity.User;
 import com.summer.modules.sys.utils.UserUtils;
@@ -16,6 +18,7 @@ import java.util.Date;
 @Data
 public class DataEntity<T> extends BaseEntity<T> {
 
+    protected static SecurityUtils securityUtils = SpringContextHolder.getBean("securityUtils");
     /**
      * 删除标记（0：正常；）
      */
@@ -58,7 +61,7 @@ public class DataEntity<T> extends BaseEntity<T> {
         }
         User user = null;
         Date now = new Date();
-//        user = UserUtils.getUser();
+        user = securityUtils.getCurrUser();
         if (user != null && StringUtils.isNotBlank(user.getId())) {
             this.createBy = user.getId();
             this.updateBy = user.getId();
@@ -74,7 +77,7 @@ public class DataEntity<T> extends BaseEntity<T> {
 
     public void preUpdate() {
         User user = null;
-//        user = UserUtils.getUser();
+        user = securityUtils.getCurrUser();;
         if (user != null && StringUtils.isNotBlank(user.getId())) {
             this.updateBy = user.getId();
         } else {

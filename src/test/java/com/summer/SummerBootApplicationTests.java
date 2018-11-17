@@ -44,7 +44,7 @@ public class SummerBootApplicationTests {
 		Role role = new Role();
 		role.setName("ROLE_ADMIN");
 		role.setCnName("超级管理员");
-		roleService.save(role);
+		roleService.insert(role);
 		System.out.println("*****************   插入完成    **********************");
 	}
 
@@ -71,7 +71,7 @@ public class SummerBootApplicationTests {
 		List<Role> list = Lists.newArrayList();
 		list.add(new Role("5746e24e182544fa8f2483bb8c8843cc"));
 		user.setRoleList(list);
-		userService.save(user);
+		userService.insert(user);
 		System.out.println("*****************   插入完成    **********************");
 	}
 
@@ -87,7 +87,7 @@ public class SummerBootApplicationTests {
 		permission.setSort(10);
 		permission.setPath("/sysManage");
 		permission.setComponent("sysManage");
-		permissionService.save(permission);
+		permissionService.insert(permission);
 		System.out.println("*****************   插入完成    **********************");
 	}
 
@@ -107,7 +107,7 @@ public class SummerBootApplicationTests {
         permission.setSort(10);
         permission.setPath("role-manage");
         permission.setComponent("@/sys/role-manage/roleManageList");
-        permissionService.save(permission);
+        permissionService.insert(permission);
         System.out.println("*****************   插入完成    **********************");
     }
 

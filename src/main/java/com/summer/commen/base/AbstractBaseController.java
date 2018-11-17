@@ -33,18 +33,26 @@ public abstract class AbstractBaseController <S extends BaseService<T>, T> {
     }
 
     @RequestMapping(value = "save", method = RequestMethod.POST)
-    @ApiOperation(value = "新增或修改数据")
+    @ApiOperation(value = "新增插入数据")
     @ResponseBody
     public ResultJSON save(T entity) {
-        service.save(entity);
+        service.insert(entity);
         return ResultJSON.ok(HttpServletResponse.SC_OK, "保存数据成功");
     }
 
-    @RequestMapping(value = "delete/", method = RequestMethod.DELETE)
+    @RequestMapping(value = "save", method = RequestMethod.PUT)
+    @ApiOperation(value = "新增或修改数据")
+    @ResponseBody
+    public ResultJSON update(T entity) {
+        service.update(entity);
+        return ResultJSON.ok(HttpServletResponse.SC_OK, "修改数据成功");
+    }
+
+    @RequestMapping(value = "delete/{id}", method = RequestMethod.DELETE)
     @ApiOperation(value = "通过id删除数据")
     @ResponseBody
-    public ResultJSON delete(T entity) {
-        service.delete(entity);
+    public ResultJSON delete(@PathVariable String id) {
+        service.delete(id);
         return ResultJSON.ok(HttpServletResponse.SC_OK, "删除数据成功");
     }
 
