@@ -51,12 +51,11 @@ public class DataEntity<T> extends BaseEntity<T> {
     /**
      * 插入数据库前，处理方式
      */
-    public void preInsert() {
+    public void preInsert(User user) {
         Date now = new Date();
         if (getId() == null || StringUtils.isBlank(getId())) {
             setId(IdGen.uuid());
         }
-        User user = UserUtils.getUser();
         if (user != null && StringUtils.isNotBlank(user.getId())) {
             this.createBy = user.getId();
             this.updateBy = user.getId();
@@ -71,8 +70,7 @@ public class DataEntity<T> extends BaseEntity<T> {
     /**
      * 更新数据前处理方式
      */
-    public void preUpdate() {
-        User user = UserUtils.getUser();
+    public void preUpdate(User user) {
         if (user != null && StringUtils.isNotBlank(user.getId())) {
             this.updateBy = user.getId();
         } else {

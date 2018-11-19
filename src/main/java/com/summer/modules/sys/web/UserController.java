@@ -14,10 +14,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/api/sys/user")
 @Api(description = "系统用户接口")
 public class UserController extends AbstractBaseController<UserService, User>{
-
-    @Autowired
-    private SecurityUtils securityUtils;
-
 //    @ModelAttribute
 //    public User getEntity(@RequestParam(required = false) String id) {
 //        User entity = null;

@@ -62,7 +62,7 @@ public abstract class AbstractBaseService<D extends CrudDao<T>, T extends DataEn
      */
     @Transactional(readOnly = false)
     public void insert(T entity) {
-        entity.preInsert();
+        entity.preInsert(securityUtils.getCurrUser());
         dao.insert(entity);
     }
 
@@ -72,7 +72,7 @@ public abstract class AbstractBaseService<D extends CrudDao<T>, T extends DataEn
      */
     @Transactional(readOnly = false)
     public void update(T entity) {
-        entity.preUpdate();
+        entity.preUpdate(securityUtils.getCurrUser());
         dao.update(entity);
     }
 

@@ -1,21 +1,23 @@
 package com.summer.commen.utils;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
 @Component
+@Slf4j
 public class SpringUtils implements ApplicationContextAware {
 
     private static ApplicationContext applicationContext;
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        System.out.println("初始化开始");
+        log.info("ApplicationContext 初始化开始");
         if(SpringUtils.applicationContext == null) {
             SpringUtils.applicationContext = applicationContext;
-            System.out.println("初始化结束");
+            log.info("ApplicationContext 初始化结束");
         }
     }
 

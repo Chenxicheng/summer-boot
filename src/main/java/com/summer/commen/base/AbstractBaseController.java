@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.google.common.base.Splitter;
 import com.summer.commen.utils.ResultJSON;
 import com.summer.commen.utils.StringUtils;
+import com.summer.modules.sys.utils.SecurityUtils;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,8 @@ public abstract class AbstractBaseController <S extends BaseService<T>, T> {
 
     @Autowired
     protected S service;
+    @Autowired
+    protected SecurityUtils securityUtils;
 
     @RequestMapping(value = "get/{id}", method = RequestMethod.GET)
     @ApiOperation(value = "通过id获取")
