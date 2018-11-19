@@ -115,21 +115,21 @@ public class UserServiceImpl extends AbstractBaseService<UserDao, User> implemen
     @Transactional(readOnly = false)
     public void updatePasswordById(User user) {
         user.setPassword(encryptPassword(user.getPassword()));
-        user.preUpdate();
+        user.preUpdate(securityUtils.getCurrUser());
         dao.updatePasswordById(user);
     }
 
     @Override
     @Transactional(readOnly = false)
     public void updateUserInfo(User user) {
-        user.preUpdate();
+        user.preUpdate(securityUtils.getCurrUser());
         dao.updateUserInfo(user);
     }
 
     @Override
     @Transactional(readOnly = false)
     public void updateByIsEnable(User user) {
-        user.preUpdate();
+        user.preUpdate(securityUtils.getCurrUser());
         dao.updateByStatus(user);
     }
 

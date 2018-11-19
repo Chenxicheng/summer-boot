@@ -3,9 +3,7 @@ package com.summer.commen.base;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.summer.commen.utils.*;
 import com.summer.modules.sys.entity.User;
-import com.summer.modules.sys.utils.UserUtils;
 import lombok.Data;
-import org.springframework.context.annotation.DependsOn;
 
 import java.util.Date;
 

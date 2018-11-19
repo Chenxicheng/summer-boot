@@ -37,6 +37,10 @@ public class UserController extends AbstractBaseController<UserService, User>{
     @RequestMapping(value = "verifyUsername",  method = RequestMethod.GET)
     @ApiOperation(value = "校验用户名是否重复")
     public ResultJSON verifyUsername(String username) {
-        return ResultJSON.ok("success");
+        User user = service.findByUsername(username);
+        if (user == null) {
+            ResultJSON.ok("success").put("result", false);
+        }
+        return ResultJSON.ok("success").put("result", true);
     }
 }
