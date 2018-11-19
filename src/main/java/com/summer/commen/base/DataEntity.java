@@ -1,13 +1,11 @@
 package com.summer.commen.base;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.summer.commen.utils.IdGen;
-import com.summer.commen.utils.SecurityUtils;
-import com.summer.commen.utils.SpringContextHolder;
-import com.summer.commen.utils.StringUtils;
+import com.summer.commen.utils.*;
 import com.summer.modules.sys.entity.User;
 import com.summer.modules.sys.utils.UserUtils;
 import lombok.Data;
+import org.springframework.context.annotation.DependsOn;
 
 import java.util.Date;
 
@@ -17,8 +15,6 @@ import java.util.Date;
  */
 @Data
 public class DataEntity<T> extends BaseEntity<T> {
-
-    protected static SecurityUtils securityUtils = SpringContextHolder.getBean("securityUtils");
     /**
      * 删除标记（0：正常；）
      */
@@ -53,35 +49,34 @@ public class DataEntity<T> extends BaseEntity<T> {
     }
 
     /**
-     *
+     * 插入数据库前，处理方式
      */
     public void preInsert() {
+        Date now = new Date();
         if (getId() == null || StringUtils.isBlank(getId())) {
             setId(IdGen.uuid());
         }
-        User user = null;
-        Date now = new Date();
-        user = securityUtils.getCurrUser();
+        User user = UserUtils.getUser();
         if (user != null && StringUtils.isNotBlank(user.getId())) {
             this.createBy = user.getId();
             this.updateBy = user.getId();
         } else {
-            this.createBy = "1";
-            this.updateBy = "1";
+            this.createBy = User.ROOT_ID;
+            this.updateBy = User.ROOT_ID;
         }
-
         this.createDate = now;
-
         this.updateDate = now;
     }
 
+    /**
+     * 更新数据前处理方式
+     */
     public void preUpdate() {
-        User user = null;
-        user = securityUtils.getCurrUser();;
+        User user = UserUtils.getUser();
         if (user != null && StringUtils.isNotBlank(user.getId())) {
             this.updateBy = user.getId();
         } else {
-            this.updateBy = "1";
+            this.updateBy = User.ROOT_ID;
         }
         this.updateDate = new Date();
     }

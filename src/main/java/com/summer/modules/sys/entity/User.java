@@ -10,6 +10,10 @@ import java.util.List;
 @Data
 public class User extends DataEntity<User> {
     /**
+     * 超级超级管理员（根）用户id = 1
+     */
+    public static final String ROOT_ID = "1";
+    /**
      * 是否启用 启用 0
      */
     public static final String USER_STATUS_NORMAL = "0";

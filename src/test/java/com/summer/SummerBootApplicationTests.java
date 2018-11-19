@@ -65,12 +65,12 @@ public class SummerBootApplicationTests {
 	@Test
 	public void testUser () {
 		User user = new User();
-		user.setUsername("test");
+		user.setUsername("test123456");
 		user.setPassword("123456");
 		user.setName("test");
-		List<Role> list = Lists.newArrayList();
-		list.add(new Role("5746e24e182544fa8f2483bb8c8843cc"));
-		user.setRoleList(list);
+//		List<Role> list = Lists.newArrayList();
+//		list.add(new Role("5746e24e182544fa8f2483bb8c8843cc"));
+//		user.setRoleList(list);
 		userService.insert(user);
 		System.out.println("*****************   插入完成    **********************");
 	}

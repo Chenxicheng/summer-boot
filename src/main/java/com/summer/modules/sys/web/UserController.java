@@ -2,15 +2,12 @@ package com.summer.modules.sys.web;
 
 import com.summer.commen.base.AbstractBaseController;
 import com.summer.commen.utils.ResultJSON;
-import com.summer.commen.utils.SecurityUtils;
-import com.summer.commen.utils.StringUtils;
+import com.summer.modules.sys.utils.SecurityUtils;
 import com.summer.modules.sys.entity.User;
 import com.summer.modules.sys.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

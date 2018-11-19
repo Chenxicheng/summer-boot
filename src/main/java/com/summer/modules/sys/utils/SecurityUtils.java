@@ -1,4 +1,4 @@
-package com.summer.commen.utils;
+package com.summer.modules.sys.utils;
 
 import com.summer.modules.sys.entity.User;
 import com.summer.modules.sys.service.UserService;
@@ -13,14 +13,21 @@ import org.springframework.stereotype.Component;
 public class SecurityUtils {
     @Autowired
     private UserService userService;
-
     /**
      * 获取当前登录用户
      * @return
      */
     public User getCurrUser(){
-        UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return userService.findByUsername(user.getUsername());
+        UserDetails userDetails = null;
+        try {
+            userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            if (userDetails == null) {
+                return null;
+            }
+        } catch (Exception e) {
+            return null;
+        }
+        return userService.findByUsername(userDetails.getUsername());
     }
 
 }

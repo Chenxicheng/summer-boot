@@ -1,8 +1,7 @@
 package com.summer.commen.base;
 
 import com.baomidou.mybatisplus.plugins.Page;
-import com.summer.commen.utils.SecurityUtils;
-import com.summer.commen.utils.StringUtils;
+import com.summer.modules.sys.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +15,8 @@ public abstract class AbstractBaseService<D extends CrudDao<T>, T extends DataEn
      */
     @Autowired
     protected D dao;
+    @Autowired
+    protected SecurityUtils securityUtils;
 
     /**
      * 获取单条数据
