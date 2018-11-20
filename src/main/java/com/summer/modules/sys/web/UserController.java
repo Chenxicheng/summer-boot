@@ -8,6 +8,7 @@ import com.summer.modules.sys.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -25,19 +26,22 @@ public class UserController extends AbstractBaseController<UserService, User>{
 //        }
 //        return entity;
 //    }
-
+    @Autowired
+    private StringRedisTemplate redisTemplate;
 
     @Override
     public ResultJSON save(User user) {
-        if (service.findByUsername(user.getUsername()) != null) {
+        User u = service.findByUsername(user.getUsername());
+        if ( u != null) {
             return ResultJSON.setErrorMsg("用户名已添加");
         }
+        redisTemplate.delete("user::"+user.getUsername());
         try {
             service.insert(user);
         } catch (Exception e) {
             return ResultJSON.setErrorMsg("添加用户失败");
         }
-        return ResultJSON.setOkMsg(String.format("添加用户 %s 成功"));
+        return ResultJSON.setOkMsg(String.format("添加用户 %s 成功", user.getUsername()));
     }
 
     @RequestMapping(value = "getUserInfo",  method = RequestMethod.GET)
