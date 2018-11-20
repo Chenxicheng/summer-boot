@@ -39,15 +39,23 @@ public abstract class AbstractBaseController <S extends BaseService<T>, T> {
     @ApiOperation(value = "新增插入数据")
     @ResponseBody
     public ResultJSON save(T entity) {
-        service.insert(entity);
+        try {
+            service.insert(entity);
+        } catch (Exception e) {
+            return ResultJSON.setErrorMsg("保存数据失败");
+        }
         return ResultJSON.setOkMsg("保存数据成功");
     }
 
     @RequestMapping(value = "update", method = RequestMethod.PUT)
-    @ApiOperation(value = "新增或修改数据")
+    @ApiOperation(value = "修改数据")
     @ResponseBody
     public ResultJSON update(T entity) {
-        service.update(entity);
+        try {
+            service.update(entity);
+        } catch (Exception e) {
+            return ResultJSON.setErrorMsg("修改数据失败");
+        }
         return ResultJSON.setOkMsg("修改数据成功");
     }
 

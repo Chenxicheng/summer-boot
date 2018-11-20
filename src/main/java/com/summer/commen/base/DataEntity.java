@@ -5,6 +5,7 @@ import com.summer.commen.utils.*;
 import com.summer.modules.sys.entity.User;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -12,7 +13,8 @@ import java.util.Date;
  * @param <T>
  */
 @Data
-public class DataEntity<T> extends BaseEntity<T> {
+public class DataEntity<T> extends BaseEntity<T> implements Serializable {
+    private static final long serialVersionUID = 1L;
     /**
      * 删除标记（0：正常；）
      */

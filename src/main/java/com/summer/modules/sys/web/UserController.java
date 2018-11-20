@@ -26,6 +26,20 @@ public class UserController extends AbstractBaseController<UserService, User>{
 //        return entity;
 //    }
 
+
+    @Override
+    public ResultJSON save(User user) {
+        if (service.findByUsername(user.getUsername()) != null) {
+            return ResultJSON.setErrorMsg("用户名已添加");
+        }
+        try {
+            service.insert(user);
+        } catch (Exception e) {
+            return ResultJSON.setErrorMsg("添加用户失败");
+        }
+        return ResultJSON.setOkMsg(String.format("添加用户 %s 成功"));
+    }
+
     @RequestMapping(value = "getUserInfo",  method = RequestMethod.GET)
     @ApiOperation(value = "获取当前登陆用户者信息")
     public ResultJSON getUserInfo() {
