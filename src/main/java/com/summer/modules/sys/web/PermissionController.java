@@ -38,7 +38,7 @@ public class PermissionController extends AbstractBaseController<PermissionServi
     @ApiOperation(value = "通过登录者id，获取该用户的菜单及权限")
     public ResultJSON findMenuByUserId (@PathVariable String userId) {
         List<Permission> list = service.findMenuByUserId(userId);
-        return ResultJSON.ok(200, "ok").put("menuList", list);
+        return ResultJSON.setData(list);
     }
 
 }

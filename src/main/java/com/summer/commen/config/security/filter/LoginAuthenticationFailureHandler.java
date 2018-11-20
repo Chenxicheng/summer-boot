@@ -38,11 +38,11 @@ public class LoginAuthenticationFailureHandler implements AuthenticationFailureH
             //获取已登录错误次数
             int loginFailTime = Integer.parseInt(value);
             int restLoginTime = loginTimeLimit - loginFailTime;*/
-            ResponseUtils.out(response, ResultJSON.error(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "用户名或密码错误"));
+            ResponseUtils.out(response, ResultJSON.setErrorMsg(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "用户名或密码错误"));
         } else if (e instanceof DisabledException) {
-            ResponseUtils.out(response, ResultJSON.error(HttpServletResponse.SC_INTERNAL_SERVER_ERROR,"账户被禁用，请联系管理员"));
+            ResponseUtils.out(response, ResultJSON.setErrorMsg(HttpServletResponse.SC_INTERNAL_SERVER_ERROR,"账户被禁用，请联系管理员"));
         } else {
-            ResponseUtils.out(response, ResultJSON.error(HttpServletResponse.SC_INTERNAL_SERVER_ERROR,"登录失败"));
+            ResponseUtils.out(response, ResultJSON.setErrorMsg(HttpServletResponse.SC_INTERNAL_SERVER_ERROR,"登录失败"));
         }
 
 

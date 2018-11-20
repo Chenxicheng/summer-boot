@@ -24,7 +24,7 @@ public abstract class AbstractBaseController <S extends BaseService<T>, T> {
     @ResponseBody
     public ResultJSON get(@PathVariable String id) {
         T entity = service.get(id);
-        return ResultJSON.ok(HttpServletResponse.SC_OK, "success").put("entity", entity);
+        return ResultJSON.setData(entity);
     }
 
     @RequestMapping(value = "findPage", method = RequestMethod.GET)
@@ -32,7 +32,7 @@ public abstract class AbstractBaseController <S extends BaseService<T>, T> {
     @ResponseBody
     public ResultJSON findPage(@ModelAttribute T entity, int pageNo, int pageSize) {
         Page<T> page = service.findPage(new Page<T>(pageNo, pageSize), entity);
-        return ResultJSON.ok(HttpServletResponse.SC_OK, "success").put("list", page.getRecords()).put("count", page.getTotal());
+        return ResultJSON.setData(page);
     }
 
     @RequestMapping(value = "save", method = RequestMethod.POST)
@@ -40,15 +40,15 @@ public abstract class AbstractBaseController <S extends BaseService<T>, T> {
     @ResponseBody
     public ResultJSON save(T entity) {
         service.insert(entity);
-        return ResultJSON.ok(HttpServletResponse.SC_OK, "保存数据成功");
+        return ResultJSON.setOkMsg("保存数据成功");
     }
 
-    @RequestMapping(value = "save", method = RequestMethod.PUT)
+    @RequestMapping(value = "update", method = RequestMethod.PUT)
     @ApiOperation(value = "新增或修改数据")
     @ResponseBody
     public ResultJSON update(T entity) {
         service.update(entity);
-        return ResultJSON.ok(HttpServletResponse.SC_OK, "修改数据成功");
+        return ResultJSON.setOkMsg("修改数据成功");
     }
 
     @RequestMapping(value = "delete/{id}", method = RequestMethod.DELETE)
@@ -56,7 +56,7 @@ public abstract class AbstractBaseController <S extends BaseService<T>, T> {
     @ResponseBody
     public ResultJSON delete(@PathVariable String id) {
         service.delete(id);
-        return ResultJSON.ok(HttpServletResponse.SC_OK, "删除数据成功");
+        return ResultJSON.setOkMsg("删除数据成功");
     }
 
     @RequestMapping(value = "deleteAll", method = RequestMethod.DELETE)
@@ -65,7 +65,7 @@ public abstract class AbstractBaseController <S extends BaseService<T>, T> {
     public ResultJSON deleteAll (String ids) {
         List<String> idList = Splitter.on(",").omitEmptyStrings().trimResults().splitToList(ids);
         service.deleteAll(idList);
-        return ResultJSON.ok(HttpServletResponse.SC_OK, "批量删除数据成功");
+        return ResultJSON.setOkMsg("批量删除数据成功");
     }
 
 }

@@ -41,7 +41,7 @@ public class LoginAuthenticationSuccessHandler implements AuthenticationSuccessH
 
         String token = jwtUtils.generateToken(userDetail.getUsername(), userDetail.getId(), authorityList);
 
-        ResponseUtils.out(response, ResultJSON.ok(HttpServletResponse.SC_OK, "token").put("token", JWTUtils.TOKEN_PREFIX+token));
+        ResponseUtils.out(response, ResultJSON.setOkMsg().put("token", JWTUtils.TOKEN_PREFIX+token));
 
     }
 }

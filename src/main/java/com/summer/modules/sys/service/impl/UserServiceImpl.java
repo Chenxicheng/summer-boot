@@ -11,6 +11,7 @@ import com.summer.modules.sys.entity.User;
 import com.summer.modules.sys.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -34,6 +35,9 @@ public class UserServiceImpl extends AbstractBaseService<UserDao, User> implemen
     @Autowired
     private PermissionDao permissionDao;
 
+    @Autowired
+    private StringRedisTemplate redisTemplate;
+
     @Override
     public User get(String id) {
         User user = super.get(id);
@@ -55,7 +59,6 @@ public class UserServiceImpl extends AbstractBaseService<UserDao, User> implemen
         if (user.getRoleList().size() > 0) {
             dao.insertUserRole(user);
         }
-
     }
 
     @Override

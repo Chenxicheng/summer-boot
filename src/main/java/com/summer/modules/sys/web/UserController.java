@@ -31,7 +31,7 @@ public class UserController extends AbstractBaseController<UserService, User>{
     public ResultJSON getUserInfo() {
         User user = securityUtils.getCurrUser();
         user.setPassword(null);
-        return ResultJSON.ok("success").put("user", user);
+        return ResultJSON.setData(user);
     }
 
     @RequestMapping(value = "verifyUsername",  method = RequestMethod.GET)
@@ -39,8 +39,8 @@ public class UserController extends AbstractBaseController<UserService, User>{
     public ResultJSON verifyUsername(String username) {
         User user = service.findByUsername(username);
         if (user == null) {
-            ResultJSON.ok("success").put("result", false);
+            ResultJSON.setOkMsg("该用户名未添加");
         }
-        return ResultJSON.ok("success").put("result", true);
+        return ResultJSON.setErrorMsg(200, "该用户名已添加，用户名重复");
     }
 }

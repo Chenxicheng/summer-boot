@@ -95,7 +95,7 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
             } catch (ExpiredJwtException e) {
 //                throw new XbootException("登录已失效，请重新登录");
             } catch (Exception e){
-                ResponseUtils.out(response, ResultJSON.error(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "解析token错误"));
+                ResponseUtils.out(response, ResultJSON.setErrorMsg(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "解析token错误"));
             }
         }
         return null;

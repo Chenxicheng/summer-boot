@@ -28,68 +28,68 @@ public class ResultJSON extends JSONObject implements Serializable{
         put("status", status);
     }
 
-    /**
-     * 执行错误
-     */
-    public static ResultJSON error() {
+    private static ResultJSON error() {
         return new ResultJSON(false);
     }
 
-
     /**
-     * 执行错误
-     * @param message 错误信息
-     * @return ResultJSON
+     * 错误信息
+     * @param message
+     * @return {status: false, code: 500, message: message}
      */
-    public static ResultJSON error(String message) {
-
-        return error().put("message", message);
+    public static ResultJSON setErrorMsg(String message) {
+        return error().put("message", message).put("code", 500);
     }
 
     /**
-     * 执行失败
-     * @param code 编码
-     * @param message 信息
-     * @return
+     * 错误信息
+     * @param code
+     * @param message
+     * @return {status: false, code: code, message: message}
      */
-    public static ResultJSON error(Integer code, String message) {
+    public static ResultJSON setErrorMsg(Integer code, String message) {
 
         return error().put("code", code).put("message", message);
     }
 
-    /**
-     * 执行正确
-     */
-    public static ResultJSON ok() {
+
+    private static ResultJSON ok() {
         return new ResultJSON(true);
     }
 
     /**
-     * 执行正确
-     * @param message 正确信息
-     * @return
+     * 成功信息
+     * @return {status: true, code: 200, message: "success"}
      */
-    /*public static ResultJSON ok(String message) {
-        return ok().put("message", message);
-    }*/
-
+    public static ResultJSON setOkMsg() {
+        return ok().put("code", 200).put("message", "success");
+    }
     /**
-     * 执行正确
-     * @param code 编码
+     * 成功信息
      * @param message 信息
-     * @return
+     * @return {status: true, code: 200, message: message}
      */
-    public static ResultJSON ok(Integer code, String message) {
-        return ok().put("code", code).put("message", message);
+    public static ResultJSON setOkMsg(String message) {
+        return ok().put("code", 200).put("message", message);
     }
 
     /**
-     * 执行正确
-     * @param message 信息
+     * 成功并设置返回值
+     * @param object
+     * @param message
      * @return
      */
-    public static ResultJSON ok(String message) {
-        return ok().put("code", HttpServletResponse.SC_OK).put("message", message);
+    public static ResultJSON setData(Object object, String message) {
+        return ok().put("code", 200).put("message", message).put("result", object);
+    }
+
+    /**
+     * 成功并设置返回值
+     * @param object
+     * @return
+     */
+    public static ResultJSON setData(Object object) {
+        return ok().put("code", 200).put("message", "success").put("result", object);
     }
 
     /**
@@ -103,13 +103,10 @@ public class ResultJSON extends JSONObject implements Serializable{
         return this;
     }
 
-    
-
 
     public static void main(String[] args) {
-        ResultJSON resultJSON = ResultJSON.ok();
-        System.out.println(ResultJSON.ok("正确").put("name", "cxc").put("age",26));
-        System.out.println(ResultJSON.error("错误"));
+        System.out.println(ResultJSON.setOkMsg().put("token", "fdsfdsafdsafdsfa"));
+        System.out.println(ResultJSON.setErrorMsg("1234"));
     }
 
 }

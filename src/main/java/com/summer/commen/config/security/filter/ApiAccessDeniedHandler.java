@@ -23,6 +23,6 @@ import java.io.IOException;
 public class ApiAccessDeniedHandler implements AccessDeniedHandler{
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException e) throws IOException, ServletException {
-        ResponseUtils.out(response, ResultJSON.error(HttpServletResponse.SC_FORBIDDEN, "没有权限"));
+        ResponseUtils.out(response, ResultJSON.setErrorMsg(HttpServletResponse.SC_FORBIDDEN, "没有权限"));
     }
 }

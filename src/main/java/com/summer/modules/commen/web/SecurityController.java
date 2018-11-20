@@ -20,7 +20,7 @@ public class SecurityController {
     @RequestMapping(value = "/needLogin",method = RequestMethod.GET)
     @ApiOperation(value = "没有登录")
     public ResultJSON needLogin(){
-        return ResultJSON.error(HttpServletResponse.SC_UNAUTHORIZED, "您还未登录");
+        return ResultJSON.setErrorMsg(HttpServletResponse.SC_UNAUTHORIZED, "您还未登录");
     }
 
 }
