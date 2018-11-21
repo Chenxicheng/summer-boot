@@ -43,6 +43,31 @@ public class UserController extends AbstractBaseController<UserService, User>{
         }
         return ResultJSON.setOkMsg(String.format("添加用户 %s 成功", user.getUsername()));
     }
+    
+    @RequestMapping(value = "editUserInfo",  method = RequestMethod.PUT)
+    @ApiOperation(value = "编辑用户基本信息，不编辑用户名及密码")
+    public ResultJSON editUserInfo(User user) {
+        User oldUser = service.get(user.getId());
+        user.setUsername(oldUser.getUsername());
+        user.setPassword(oldUser.getPassword());
+        try {
+            service.updateUserInfo(user);
+        } catch (Exception e) {
+            ResultJSON.setErrorMsg("修改用户信息失败");
+        }
+        return ResultJSON.setOkMsg("修改用户信息成功");
+    }
+
+    @RequestMapping(value = "updatePassword",  method = RequestMethod.PUT)
+    @ApiOperation(value = "修改用户密码")
+    public ResultJSON updatePassword(User user) {
+        try {
+            service.updateUserInfo(user);
+        } catch (Exception e) {
+            ResultJSON.setErrorMsg("修改密码失败");
+        }
+        return ResultJSON.setOkMsg("修改密码成功");
+    }
 
     @RequestMapping(value = "getUserInfo",  method = RequestMethod.GET)
     @ApiOperation(value = "获取当前登陆用户者信息")

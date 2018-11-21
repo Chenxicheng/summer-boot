@@ -15,7 +15,7 @@ public interface UserService extends BaseService<User> {
      * 更新密码
      * @param user
      */
-    void updatePasswordById(User user);
+    void updatePassword(User user);
 
     /**
      * 更新用户信息
