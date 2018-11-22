@@ -21,7 +21,7 @@
     </sql>
 	
 	<!-- 根据编号获得用户 -->
-	<select id="get" resultType="User">
+	<select id="get" resultType="com.summer.modules.sys.entity.User">
 		SELECT
 			<include refid="userColumns"/>
 		FROM sys_user a
@@ -41,7 +41,19 @@
 	<!-- 根据登录名查询用户 -->
 	<select id="findListByUsername" resultType="com.summer.modules.sys.entity.User">
 		SELECT
-		<include refid="userColumns"/>
+			a.id AS "id",
+			a.name AS "name",
+			a.username AS "username",
+			a.password AS "password",
+			a.phone AS "phone",
+			a.email AS "email",
+			a.status AS "status",
+			a.create_date AS "createDate",
+			a.create_by AS "createBy",
+			a.update_date AS "updateDate",
+			a.update_by AS "updateBy",
+			a.remarks AS "remarks",
+			a.del_flag AS "delFlag"
 		FROM sys_user a
 		WHERE a.username = #{username} AND a.del_flag = '0'
 	</select>

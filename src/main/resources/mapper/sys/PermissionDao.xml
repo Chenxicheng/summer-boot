@@ -65,6 +65,9 @@
 			<if test="status != null and status != ''">
 				AND a.status = #{status}
 			</if>
+			<if test="name != null and name != ''">
+				AND a.name = #{name}
+			</if>
 		</where>
 	</select>
 
@@ -72,7 +75,25 @@
 	<!-- 查询全部权限 -->
 	<select id="findAllList" resultType="com.summer.modules.sys.entity.Permission">
 		SELECT
-			<include refid="permissionColumns"/>
+			a.id AS "id",
+			a.name AS "name",
+			a.parent_id AS "parentId",
+			a.parent_ids AS "parentIds",
+			a.path AS "path",
+			a.title AS "title",
+			a.sort AS "sort",
+			a.icon AS "icon",
+			a.type AS "type",
+			a.status AS "status",
+			a.button_type AS "button",
+			a.level AS "level",
+			a.component AS "component",
+			a.remarks AS "remarks",
+			a.create_date AS "createDate",
+			a.create_by AS "createBy",
+			a.update_date AS "updateDate",
+			a.update_by AS "updateBy",
+			a.del_flag AS "delFlag",
 		FROM sys_permission a
 		<include refid="permissionJoins"/>
 		WHERE a.del_flag = #{DEL_FLAG_NORMAL}

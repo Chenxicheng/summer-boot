@@ -43,7 +43,7 @@ public class UserController extends AbstractBaseController<UserService, User>{
         }
         return ResultJSON.setOkMsg(String.format("添加用户 %s 成功", user.getUsername()));
     }
-    
+
     @RequestMapping(value = "editUserInfo",  method = RequestMethod.PUT)
     @ApiOperation(value = "编辑用户基本信息，不编辑用户名及密码")
     public ResultJSON editUserInfo(User user) {

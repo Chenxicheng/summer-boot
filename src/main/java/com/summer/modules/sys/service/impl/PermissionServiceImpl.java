@@ -38,7 +38,7 @@ public class PermissionServiceImpl extends AbstractBaseService<PermissionDao, Pe
     private RoleDao roleDao;
 
     @Override
-    @Cacheable(key = "'userMenuList:'+#userId")
+    @Cacheable(key = "#userId")
     public List<Permission> findMenuByUserId(String userId) {
         List<Permission> permissionList = dao.findMenuListByUserId(userId);
         return TreeUtils.formatTree(permissionList);
@@ -52,7 +52,6 @@ public class PermissionServiceImpl extends AbstractBaseService<PermissionDao, Pe
 
 
     @Transactional(readOnly = false)
-    @CacheEvict(key = "'menuList'")
     public void insert(Permission permission) {
         if (StringUtils.isBlank(permission.getParentIds())) {
             permission.setParentIds(permission.getParentId());
@@ -66,22 +65,20 @@ public class PermissionServiceImpl extends AbstractBaseService<PermissionDao, Pe
         Role role = new Role(Role.ROLE_ADMIN_ID);
         role.setPermissionList(Lists.newArrayList(permission));
         roleDao.insertPermissionRole(role);
-        //手动删除缓存
-        stringRedisTemplate.delete("permission::allList");
     }
 
-    @Transactional(readOnly = false)
-    public void update (Permission permission) {
-        super.update(permission);
-        //手动批量删除缓存
-        Set<String> keys = stringRedisTemplate.keys("userPermission:" + "*");
-        stringRedisTemplate.delete(keys);
-        Set<String> keysUser = stringRedisTemplate.keys("user:" + "*");
-        stringRedisTemplate.delete(keysUser);
-        Set<String> keysUserMenu = stringRedisTemplate.keys("permission::userMenuList:*");
-        stringRedisTemplate.delete(keysUserMenu);
-        stringRedisTemplate.delete("permission::allList");
-    }
+//    @Transactional(readOnly = false)
+//    public void update (Permission permission) {
+//        super.update(permission);
+//        //手动批量删除缓存
+//        Set<String> keys = stringRedisTemplate.keys("userPermission:" + "*");
+//        stringRedisTemplate.delete(keys);
+//        Set<String> keysUser = stringRedisTemplate.keys("user:" + "*");
+//        stringRedisTemplate.delete(keysUser);
+//        Set<String> keysUserMenu = stringRedisTemplate.keys("permission::userMenuList:*");
+//        stringRedisTemplate.delete(keysUserMenu);
+//        stringRedisTemplate.delete("permission::allList");
+//    }
 
     @Override
     public void deleteByLogic(String id) {

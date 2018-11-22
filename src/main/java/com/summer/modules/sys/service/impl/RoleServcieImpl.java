@@ -17,7 +17,6 @@ public class RoleServcieImpl extends AbstractBaseService<RoleDao, Role> implemen
     @Override
     @Transactional(readOnly = false)
     public void accessPermission(Role role, List<String> permissionIdList) {
-
         role.setPermissionList(permissionIdList
                                             .stream()
                                             .map(pid -> {
