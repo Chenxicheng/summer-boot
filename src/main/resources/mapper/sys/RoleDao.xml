@@ -37,6 +37,9 @@
 			<if test="id != null and id != ''">
 				AND a.id = #{id}
 			</if>
+			<if test="name != null and name != ''">
+				AND a.name = #{name}
+			</if>
 		</where>
 	</select>
 

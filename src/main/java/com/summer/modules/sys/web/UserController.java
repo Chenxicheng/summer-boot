@@ -2,6 +2,7 @@ package com.summer.modules.sys.web;
 
 import com.summer.commen.base.AbstractBaseController;
 import com.summer.commen.utils.ResultJSON;
+import com.summer.commen.utils.StringUtils;
 import com.summer.modules.sys.utils.SecurityUtils;
 import com.summer.modules.sys.entity.User;
 import com.summer.modules.sys.service.UserService;
@@ -30,7 +31,10 @@ public class UserController extends AbstractBaseController<UserService, User>{
     private StringRedisTemplate redisTemplate;
 
     @Override
-    public ResultJSON save(User user) {
+    public ResultJSON save(@ModelAttribute User user) {
+        if (StringUtils.isBlank(user.getUsername()) || StringUtils.isBlank(user.getPassword())) {
+            return ResultJSON.setErrorMsg("用户名或密码不能为空");
+        }
         User u = service.findByUsername(user.getUsername());
         if ( u != null) {
             return ResultJSON.setErrorMsg("用户名已存在");

@@ -38,7 +38,6 @@ public class PermissionServiceImpl extends AbstractBaseService<PermissionDao, Pe
     private RoleDao roleDao;
 
     @Override
-    @Cacheable(key = "#userId")
     public List<Permission> findMenuByUserId(String userId) {
         List<Permission> permissionList = dao.findMenuListByUserId(userId);
         return TreeUtils.formatTree(permissionList);

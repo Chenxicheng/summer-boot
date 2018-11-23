@@ -1,6 +1,7 @@
 package com.summer.modules.commen.web;
 
 import com.summer.commen.utils.ResultJSON;
+import com.summer.commen.utils.StringUtils;
 import com.summer.modules.sys.entity.User;
 import com.summer.modules.sys.service.UserService;
 import io.swagger.annotations.Api;
@@ -33,9 +34,12 @@ public class SecurityController {
     @RequestMapping(value = "verifyUsername",  method = RequestMethod.GET)
     @ApiOperation(value = "校验用户名是否重复")
     public ResultJSON verifyUsername(String username) {
+        if (StringUtils.isBlank(username)) {
+            return ResultJSON.setErrorMsg("用户名不能为空");
+        }
         User user = userService.findByUsername(username);
         if (user == null) {
-            ResultJSON.setOkMsg("该用户名未添加");
+            return ResultJSON.setOkMsg("该用户名未添加");
         }
         return ResultJSON.setErrorMsg(200, "该用户名已存在");
     }

@@ -16,6 +16,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * @Author: Dashwood
@@ -83,5 +84,43 @@ public class PermissionController extends AbstractBaseController<PermissionServi
         redisTemplate.delete("permission::allList");
 
         return ResultJSON.setOkMsg("保存数据成功");
+    }
+
+    @Override
+    public ResultJSON update(Permission permission) {
+        // 修改菜单权限，判断页面name名称不重复
+        if (CommenConstant.PERMISSION_TYPE_PAGE.equals(permission.getType())) {
+            Permission oldp = service.get(permission.getId());
+            if (!oldp.getName().equals(permission.getName())) {
+                Permission p = new Permission();
+                p.setType(CommenConstant.PERMISSION_TYPE_PAGE);
+                p.setName(permission.getName());
+                List<Permission> list = service.findList(permission);
+                if (list != null && list.size() > 0) {
+                    return ResultJSON.setErrorMsg("英文名称已存在");
+                }
+            }
+        }
+
+        try {
+            service.update(permission);
+        } catch (Exception e) {
+            return ResultJSON.setErrorMsg("修改数据失败");
+        }
+        //重新加载权限
+        mySecurityMetadataSource.loadResourceDefine();
+        //手动批量删除缓存
+        Set<String> keys = redisTemplate.keys("userPermission:" + "*");
+        redisTemplate.delete(keys);
+        Set<String> keysUser = redisTemplate.keys("user:" + "*");
+        redisTemplate.delete(keysUser);
+        redisTemplate.delete("permission::allList");
+        return ResultJSON.setOkMsg("修改数据成功");
+    }
+
+    @RequestMapping(value = "getMenuAllList", method = RequestMethod.GET)
+    @ApiOperation(value = "获取全部菜单权限信息")
+    public ResultJSON getMenuAllList() {
+        return ResultJSON.setData(service.getAllList());
     }
 }

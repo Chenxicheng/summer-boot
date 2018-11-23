@@ -1,6 +1,8 @@
 package com.summer.modules.sys.service.impl;
 
 import com.summer.commen.base.AbstractBaseService;
+import com.summer.commen.utils.ResultJSON;
+import com.summer.commen.utils.StringUtils;
 import com.summer.modules.sys.dao.RoleDao;
 import com.summer.modules.sys.entity.Permission;
 import com.summer.modules.sys.entity.Role;
@@ -24,6 +26,27 @@ public class RoleServcieImpl extends AbstractBaseService<RoleDao, Role> implemen
                                             }).collect(Collectors.toList()));
         dao.deletePermissionRole(role);
         dao.insertPermissionRole(role);
+    }
+
+    @Override
+    public ResultJSON validateName(String name) {
+        if (StringUtils.isBlank(name)) {
+            return ResultJSON.setErrorMsg(200, "请输入英文名称");
+        }
+        String pattern = "^(ROLE_[A-Z]+)|(ROLE_[A-Z]+[0-9]+)$";
+        if ("ROLE_".startsWith(name)) {
+            return ResultJSON.setErrorMsg(200, "英文名称以ROLE_开头");
+        }
+
+        if (StringUtils.isAllUpperCase(name)) {
+            return ResultJSON.setErrorMsg(200, "英文名称为大写");
+        }
+
+        List<Role> list = dao.findList(new Role(name, null));
+        if (list != null && list.size() > 0) {
+            return ResultJSON.setErrorMsg(200, "英文名称已存在");
+        }
+        return ResultJSON.setOkMsg("英文名称未添加");
     }
 
     @Override

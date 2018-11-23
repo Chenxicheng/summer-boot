@@ -1,6 +1,7 @@
 package com.summer.modules.sys.service;
 
 import com.summer.commen.base.BaseService;
+import com.summer.commen.utils.ResultJSON;
 import com.summer.modules.sys.entity.Role;
 
 import java.util.List;
@@ -14,4 +15,5 @@ public interface RoleService extends BaseService<Role> {
      */
     void accessPermission (Role role, List<String> permissionIdList);
 
+    ResultJSON validateName(String name);
 }

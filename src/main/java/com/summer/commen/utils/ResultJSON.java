@@ -103,6 +103,21 @@ public class ResultJSON extends JSONObject implements Serializable{
         return this;
     }
 
+    public boolean isStatus() {
+        return this.getBoolean("status");
+    }
+
+    public Integer getCode() {
+        return this.getInteger("code");
+    }
+
+    public String getMessage() {
+        return this.getString("message");
+    }
+
+    public Object getResult() {
+        return this.get("result");
+    }
 
     public static void main(String[] args) {
         System.out.println(ResultJSON.setOkMsg().put("token", "fdsfdsafdsafdsfa"));

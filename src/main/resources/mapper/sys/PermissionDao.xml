@@ -93,7 +93,7 @@
 			a.create_by AS "createBy",
 			a.update_date AS "updateDate",
 			a.update_by AS "updateBy",
-			a.del_flag AS "delFlag",
+			a.del_flag AS "delFlag"
 		FROM sys_permission a
 		<include refid="permissionJoins"/>
 		WHERE a.del_flag = #{DEL_FLAG_NORMAL}
