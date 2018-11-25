@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 @Service
@@ -34,12 +35,15 @@ public class RoleServcieImpl extends AbstractBaseService<RoleDao, Role> implemen
             return ResultJSON.setErrorMsg(200, "请输入英文名称");
         }
         String pattern = "^(ROLE_[A-Z]+)|(ROLE_[A-Z]+[0-9]+)$";
-        if ("ROLE_".startsWith(name)) {
-            return ResultJSON.setErrorMsg(200, "英文名称以ROLE_开头");
-        }
-
-        if (StringUtils.isAllUpperCase(name)) {
-            return ResultJSON.setErrorMsg(200, "英文名称为大写");
+//        if ("ROLE_".startsWith(name)) {
+//            return ResultJSON.setErrorMsg(200, "英文名称以ROLE_开头");
+//        }
+//
+//        if (StringUtils.isAllUpperCase(name)) {
+//            return ResultJSON.setErrorMsg(200, "英文名称为大写");
+//        }
+        if (Pattern.matches(pattern, name)) {
+            return ResultJSON.setErrorMsg(200, "英文名称以ROLE_为首并以大写字母或加数字组成");
         }
 
         List<Role> list = dao.findList(new Role(name, null));
