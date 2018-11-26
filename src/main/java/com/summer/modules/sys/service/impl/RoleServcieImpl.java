@@ -42,7 +42,7 @@ public class RoleServcieImpl extends AbstractBaseService<RoleDao, Role> implemen
 //        if (StringUtils.isAllUpperCase(name)) {
 //            return ResultJSON.setErrorMsg(200, "英文名称为大写");
 //        }
-        if (Pattern.matches(pattern, name)) {
+        if (!Pattern.matches(pattern, name)) {
             return ResultJSON.setErrorMsg(200, "英文名称以ROLE_为首并以大写字母或加数字组成");
         }
 
