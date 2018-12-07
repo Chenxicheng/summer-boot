@@ -46,7 +46,7 @@ public class PermissionServiceImpl extends AbstractBaseService<PermissionDao, Pe
     @Override
     @Cacheable(key = "'allList'")
     public List<Permission> getAllList() {
-        return TreeUtils.formatTree(dao.findAllList(new Permission()));
+        return TreeUtils.formatMenuTree(dao.findAllList(new Permission()));
     }
 
 
