@@ -45,33 +45,31 @@ public class TreeUtils {
      * @param list
      * @return
      */
-    public static  List<Permission> formatMenuTree(List<Permission> list) {
-        List<Permission> nodeList = new ArrayList<Permission>();
-        for(Permission node1 : list){
-            boolean mark = false;
-            for(Permission node2 : list){
-                if(node1.getParentId()!=null && node1.getParentId().equals(node2.getId())){
-                    mark = true;
-                    if(node2.getChildren() == null) {
-                        node2.setChildren(Lists.newArrayList());
-                    }
-                    if (node2.getButtonChildren() == null) {
-                        node2.setButtonChildren(Lists.newArrayList());
-                    }
-                    if (CommenConstant.PERMISSION_TYPE_PAGE.equals(node1.getType())) {
-                        node2.getChildren().add(node1);
-                    } else {
-                        node2.getButtonChildren().add(node1);
-                    }
-                    break;
-                }
-            }
-            if(!mark){
-                nodeList.add(node1);
-            }
-        }
-        return nodeList;
-    }
-
-
+//    public static  List<Permission> formatMenuTree(List<Permission> list) {
+//        List<Permission> nodeList = new ArrayList<Permission>();
+//        for(Permission node1 : list){
+//            boolean mark = false;
+//            for(Permission node2 : list){
+//                if(node1.getParentId()!=null && node1.getParentId().equals(node2.getId())){
+//                    mark = true;
+//                    if(node2.getChildren() == null) {
+//                        node2.setChildren(Lists.newArrayList());
+//                    }
+//                    if (node2.getButtonChildren() == null) {
+//                        node2.setButtonChildren(Lists.newArrayList());
+//                    }
+//                    if (CommenConstant.PERMISSION_TYPE_PAGE.equals(node1.getType())) {
+//                        node2.getChildren().add(node1);
+//                    } else {
+//                        node2.getButtonChildren().add(node1);
+//                    }
+//                    break;
+//                }
+//            }
+//            if(!mark){
+//                nodeList.add(node1);
+//            }
+//        }
+//        return nodeList;
+//    }
 }

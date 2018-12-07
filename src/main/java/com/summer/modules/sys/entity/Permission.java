@@ -3,8 +3,10 @@ package com.summer.modules.sys.entity;
 import com.google.common.collect.Lists;
 import com.summer.commen.base.TreeEntity;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Builder;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -36,8 +38,8 @@ public class Permission extends TreeEntity<Permission>{
     private String buttonType;
     @ApiModelProperty(value = "是否启用 0启用 -1禁用")
     private String status;
-    @ApiModelProperty(value = "按钮集合")
-    private List<Permission> buttonChildren = Lists.newArrayList();
+//    @ApiModelProperty(value = "按钮集合", dataType = "List")
+//    private List<Permission> buttonChildren = new ArrayList<>();
 
 
     private String roleNames;

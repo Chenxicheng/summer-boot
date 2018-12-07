@@ -46,9 +46,7 @@ public class Swagger2Config {
 
     @Bean
     public Docket createRestApi() {
-
         log.info("加载Swagger2");
-
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo()).select()
                 //扫描所有有注解的api，用这种方式更灵活
